@@ -23,7 +23,7 @@ public class ReplyCreateController {
     @PostMapping("/reviews/{reviewId}/replies")
     public ResponseEntity<Void> replyCreate(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("X-ROLE") String role,
+            @RequestHeader("LB-Role") String role,
             @Validated @RequestBody ReplyCreateRequestDto dto, @PathVariable String reviewId) {
         replyCreateService.createReply(dto,reviewId,adminId,role);
         return ResponseEntity.status(HttpStatus.CREATED).build();
