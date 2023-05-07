@@ -16,6 +16,7 @@ public class AdminQuestionRetrieveResponse {
   private long totalPage;
 
   @Data
+  @AllArgsConstructor
   public class QuestionContent{
     private String id;
     private String status;

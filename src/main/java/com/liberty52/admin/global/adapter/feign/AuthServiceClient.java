@@ -33,11 +33,12 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void questionReplyModify(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("LB-Role") String role,
-            @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId) ;
+            @RequestHeader("LB-ROLE") String role,
+            @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId);
+
     @GetMapping("/all-questions")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<AdminQuestionRetrieveResponse> retrieveAllQuestions(@RequestHeader("X_Role") String role,
+    ResponseEntity<AdminQuestionRetrieveResponse> retrieveAllQuestions(@RequestHeader("LB-ROLE") String role,
         @RequestParam(value = "page", defaultValue = "0") int pageNumber,
         @RequestParam(value = "size", defaultValue = "10") int size);
 }
