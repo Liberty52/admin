@@ -49,10 +49,9 @@ public interface AuthServiceClient {
         @RequestParam(value = "page", defaultValue = "0") int pageNumber,
         @RequestParam(value = "size", defaultValue = "10") int size);
 
-    @GetMapping("/questions/{questionId}")
+    @GetMapping("/all-questions/{questionId}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@PathVariable("questionId") String questionId,
-        @RequestHeader(HttpHeaders.AUTHORIZATION) String writerId);
+    ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@RequestHeader("LB-Role") String role, @PathVariable("questionId") String questionId);
 
     @DeleteMapping("/reviews/replies/{replyId}")
     @ResponseStatus(HttpStatus.OK)
