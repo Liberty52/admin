@@ -30,10 +30,6 @@ public interface AuthServiceClient {
             @RequestHeader("LB-Role") String role,
             @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId) ;
 
-    @DeleteMapping("/customerReviews/{reviewId}")
-    @ResponseStatus(HttpStatus.OK)
-    void removeCustomerReview(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String reviewId);
-    
     @DeleteMapping("/questionReplies/{questionReplyId}")
     @ResponseStatus(HttpStatus.OK)
     void deleteQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String questionReplyId);
@@ -52,7 +48,4 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@RequestHeader("LB-Role") String role, @PathVariable("questionId") String questionId);
 
-    @DeleteMapping("/reviews/replies/{replyId}")
-    @ResponseStatus(HttpStatus.OK)
-    void removeReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String replyId);
 }
