@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface ProductServiceClient {
     @PostMapping("/reviews/{reviewId}/replies")
     void replyCreate(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-        @RequestHeader("LB-ROLE") String role,
+        @RequestHeader("LB-Role") String role,
         @Validated @RequestBody ReplyCreateRequestDto dto, @PathVariable String reviewId) ;
 
     @PutMapping("/reviews/{reviewId}/replies/{replyId}")
@@ -30,8 +30,8 @@ public interface ProductServiceClient {
                             @Validated @RequestBody ReplyModifyRequestDto dto,
                             @PathVariable String reviewId,
                             @PathVariable String replyId);
-    @GetMapping("/all-reviews")
-    ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-ROLE") String role,
+    @GetMapping("/reviews")
+    ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-Role") String role,
         Pageable pageable);
 
 }
