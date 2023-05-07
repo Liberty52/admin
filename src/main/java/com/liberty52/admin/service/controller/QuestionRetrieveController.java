@@ -20,10 +20,10 @@ public class QuestionRetrieveController {
 
   private final QuestionRetrieveService questionRetrieveService;
 
-  @GetMapping("/all-questions")
+  @GetMapping("/questions")
   @ResponseStatus(HttpStatus.OK)
   ResponseEntity<AdminQuestionRetrieveResponse> retrieveAllQuestions(
-      @RequestHeader("LB-ROLE") String role,
+      @RequestHeader("LB-Role") String role,
       @RequestParam(value = "page", defaultValue = "0") int pageNumber,
       @RequestParam(value = "size", defaultValue = "10") int size) {
     return questionRetrieveService.retrieveAllQuestions(role, pageNumber, size);
@@ -31,7 +31,7 @@ public class QuestionRetrieveController {
 
   @GetMapping("/questions/{questionId}")
   @ResponseStatus(HttpStatus.OK)
-  ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@RequestHeader("LB-ROLE") String role,
+  ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@RequestHeader("LB-Role") String role,
       @PathVariable("questionId") String questionId,
       @RequestHeader(HttpHeaders.AUTHORIZATION) String writerId){
     return questionRetrieveService.retrieveQuestionDetail(role,questionId,writerId);
