@@ -28,4 +28,8 @@ public interface AuthServiceClient {
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
             @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId) ;
+
+    @DeleteMapping("/questionReplies/{questionReplyId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String questionReplyId);
 }
