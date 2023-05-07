@@ -4,6 +4,7 @@ import static com.liberty52.admin.global.constants.RoleConstants.ADMIN;
 
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.AdminQuestionRetrieveResponse;
+import com.liberty52.admin.global.adapter.feign.dto.QuestionDetailResponseDto;
 import com.liberty52.admin.global.exception.external.forbidden.InvalidRoleException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,14 @@ public class QuestionRetrieveServiceImpl implements QuestionRetrieveService{
       throw new InvalidRoleException(role);
     }
     return authServiceClient.retrieveAllQuestions(role,pageNumber,size);
+  }
+
+  @Override
+  public ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(String role, String questionId,
+      String writerId) {
+    if(!ADMIN.equals(role)){
+      throw new InvalidRoleException(role);
+    }
+    return authServiceClient.retrieveQuestionDetail(questionId,writerId);
   }
 }
