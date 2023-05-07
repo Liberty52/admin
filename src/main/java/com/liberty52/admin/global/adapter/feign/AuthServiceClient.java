@@ -25,7 +25,6 @@ public interface AuthServiceClient {
     Map<String, AuthClientDataResponse> retrieveAuthData(@RequestBody Set<String> ids);
 
     @PutMapping("/questionReplies/{questionReplyId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     void questionReplyModify(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
