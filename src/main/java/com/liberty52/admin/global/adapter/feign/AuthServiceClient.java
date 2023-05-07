@@ -42,7 +42,6 @@ public interface AuthServiceClient {
     @PostMapping("/questionReplies")
     @ResponseStatus(HttpStatus.CREATED)
     void createQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @Validated @RequestBody QuestionReplyCreateRequestDto dto);
-            @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId);
 
     @GetMapping("/all-questions")
     @ResponseStatus(HttpStatus.OK)
