@@ -1,10 +1,8 @@
 package com.liberty52.admin.service.applicationservice;
 
-import static com.liberty52.admin.global.constants.RoleConstants.ADMIN;
-
 import com.liberty52.admin.global.adapter.feign.ProductServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
-import com.liberty52.admin.global.exception.external.forbidden.InvalidRoleException;
+import com.liberty52.admin.global.utils.AdminRoleUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +17,7 @@ public class ReviewRetrieveServiceImpl implements ReviewRetrieveService{
 
   @Override
   public ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(String role, Pageable pageable) {
-    if(!ADMIN.equals(role)){
-      throw new InvalidRoleException(role);
-    }
+    AdminRoleUtils.checkRole(role);
     return productServiceClient.retrieveAllReviews(role,pageable);
   }
 }

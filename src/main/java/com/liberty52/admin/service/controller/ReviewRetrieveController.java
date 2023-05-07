@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewRetrieveController {
   private final ReviewRetrieveService reviewRetrieveService;
 
-  @GetMapping("/all-reviews")
-  ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-ROLE") String role,
+  @GetMapping("/reviews")
+  ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-Role") String role,
        Pageable pageable) {
     return reviewRetrieveService.retrieveAllReviews(role,pageable);
   }
