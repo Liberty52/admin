@@ -5,6 +5,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface ReviewRetrieveService {
-  ResponseEntity<AdminReviewRetrieveResponse> retrieveReview(String role,String adminId,String productId,
-      Pageable pageable,boolean photoFilter);
+  ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(String role, Pageable pageable);
 }

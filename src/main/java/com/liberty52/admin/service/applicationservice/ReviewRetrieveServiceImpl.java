@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class ReviewRetrieveServiceImpl implements ReviewRetrieveService{
-
   private final ProductServiceClient productServiceClient;
+
   @Override
-  public ResponseEntity<AdminReviewRetrieveResponse> retrieveReview(String role, String adminId, String productId,
-      Pageable pageable, boolean photoFilter) {
-    if(!ADMIN.equals(role))
+  public ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(String role, Pageable pageable) {
+    if(!ADMIN.equals(role)){
       throw new InvalidRoleException(role);
-    return productServiceClient.retrieveReview(adminId,productId,pageable,photoFilter);
+    }
+    return productServiceClient.retrieveAllReviews(role,pageable);
   }
 }

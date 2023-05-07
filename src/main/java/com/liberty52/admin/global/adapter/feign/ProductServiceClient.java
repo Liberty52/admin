@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
-
     @PostMapping("/reviews/{reviewId}/replies")
     void replyCreate(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-        @RequestHeader("X-ROLE") String role,
+        @RequestHeader("LB-ROLE") String role,
         @Validated @RequestBody ReplyCreateRequestDto dto, @PathVariable String reviewId) ;
 
     @PutMapping("/reviews/{reviewId}/replies/{replyId}")
@@ -32,4 +30,8 @@ public interface ProductServiceClient {
                             @Validated @RequestBody ReplyModifyRequestDto dto,
                             @PathVariable String reviewId,
                             @PathVariable String replyId);
+    @GetMapping("/all-reviews")
+    ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-ROLE") String role,
+        Pageable pageable);
+
 }

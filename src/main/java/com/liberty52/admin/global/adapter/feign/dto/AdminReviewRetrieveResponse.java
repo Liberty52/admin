@@ -23,7 +23,6 @@ public class AdminReviewRetrieveResponse {
     private String content;
     private List<String> imageUrls;
     private int nOfReply;
-    private Boolean isYours;
     private String authorId;
     private String authorName;
     private String authorProfileUrl;
@@ -38,6 +37,5 @@ public class AdminReviewRetrieveResponse {
     private String authorProfileUrl;
     private String content;
     private String replyId;
-    private Boolean isYours;
   }
 }
