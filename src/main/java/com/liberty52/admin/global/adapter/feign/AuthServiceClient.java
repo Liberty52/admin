@@ -3,6 +3,7 @@ package com.liberty52.admin.global.adapter.feign;
 import com.liberty52.admin.global.adapter.feign.dto.AdminQuestionRetrieveResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AuthClientDataResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AuthProfileDto;
+import com.liberty52.admin.service.controller.dto.QuestionReplyCreateRequestDto;
 import com.liberty52.admin.global.adapter.feign.dto.QuestionDetailResponseDto;
 import com.liberty52.admin.service.controller.dto.QuestionReplyModifyRequestDto;
 import java.util.Map;
@@ -40,6 +41,10 @@ public interface AuthServiceClient {
     @DeleteMapping("/questionReplies/{questionReplyId}")
     @ResponseStatus(HttpStatus.OK)
     void deleteQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String questionReplyId);
+    
+    @PostMapping("/questionReplies")
+    @ResponseStatus(HttpStatus.CREATED)
+    void createQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @Validated @RequestBody QuestionReplyCreateRequestDto dto);
             @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId);
 
     @GetMapping("/all-questions")
