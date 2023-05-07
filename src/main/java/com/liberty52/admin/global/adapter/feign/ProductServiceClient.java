@@ -33,4 +33,12 @@ public interface ProductServiceClient {
     ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-Role") String role,
         Pageable pageable);
 
+    @DeleteMapping("/customerReviews/{reviewId}")
+    @ResponseStatus(HttpStatus.OK)
+    void removeCustomerReview(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String reviewId);
+
+    @DeleteMapping("/reviews/replies/{replyId}")
+    @ResponseStatus(HttpStatus.OK)
+    void removeReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String replyId);
+
 }
