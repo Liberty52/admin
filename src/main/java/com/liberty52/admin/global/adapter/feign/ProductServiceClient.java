@@ -24,7 +24,6 @@ public interface ProductServiceClient {
         @Validated @RequestBody ReplyCreateRequestDto dto, @PathVariable String reviewId) ;
 
     @PutMapping("/reviews/{reviewId}/replies/{replyId}")
-    @ResponseStatus(HttpStatus.CREATED)
     void replyModify(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                             @RequestHeader("LB-Role") String role,
                             @Validated @RequestBody ReplyModifyRequestDto dto,
