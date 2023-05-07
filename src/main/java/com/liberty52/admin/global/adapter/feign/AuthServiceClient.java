@@ -2,6 +2,7 @@ package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.AuthClientDataResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AuthProfileDto;
+import com.liberty52.admin.service.controller.dto.QuestionReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.QuestionReplyModifyRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -28,4 +29,8 @@ public interface AuthServiceClient {
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
             @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId) ;
+
+    @PostMapping("/questionReplies")
+    @ResponseStatus(HttpStatus.CREATED)
+    void createQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @Validated @RequestBody QuestionReplyCreateRequestDto dto);
 }
