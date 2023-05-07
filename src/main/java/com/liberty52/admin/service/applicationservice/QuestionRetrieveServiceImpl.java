@@ -26,6 +26,6 @@ public class QuestionRetrieveServiceImpl implements QuestionRetrieveService{
   public ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(String role, String questionId,
       String writerId) {
     AdminRoleUtils.checkRole(role);
-    return authServiceClient.retrieveQuestionDetail(questionId,writerId);
+    return authServiceClient.retrieveQuestionDetail(role,questionId);
   }
 }

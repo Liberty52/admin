@@ -3,12 +3,11 @@ package com.liberty52.admin.global.adapter.feign.dto;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class QuestionDetailResponseDto {
-
   private String id;
   private String title;
   private String content;
@@ -19,12 +18,11 @@ public class QuestionDetailResponseDto {
 
   @Data
   @AllArgsConstructor
+  @NoArgsConstructor
   public class QuestionReplyResponse {
-
     private String replyId;
     private String replyContent;
     private String replyWriterId;
     private LocalDate replyCreatedAt;
   }
-
 }
