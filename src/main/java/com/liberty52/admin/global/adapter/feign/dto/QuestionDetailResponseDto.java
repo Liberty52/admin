@@ -19,7 +19,7 @@ public class QuestionDetailResponseDto {
   @Data
   @AllArgsConstructor
   @NoArgsConstructor
-  public class QuestionReplyResponse {
+  public static class QuestionReplyResponse {
     private String replyId;
     private String replyContent;
     private String replyWriterId;
