@@ -17,7 +17,7 @@ public class AdminQuestionRetrieveResponse {
 
   @Data
   @AllArgsConstructor
-  public class QuestionContent{
+  public static class QuestionContent{
     private String id;
     private String status;
     private String title;

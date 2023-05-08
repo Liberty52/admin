@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class AdminReviewRetrieveResponse {
 
   @Data
   @AllArgsConstructor
-  public class AdminReviewContent {
+  public static class AdminReviewContent {
     private String reviewId;
     private Integer rating;
     private String content;
