@@ -35,7 +35,7 @@ public interface AuthServiceClient {
     @DeleteMapping("/questionReplies/{questionReplyId}")
     @ResponseStatus(HttpStatus.OK)
     void deleteQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String questionReplyId);
-    
+
     @PostMapping("/questionReplies")
     @ResponseStatus(HttpStatus.CREATED)
     void createQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @Validated @RequestBody QuestionReplyCreateRequestDto dto);
@@ -50,6 +50,7 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@RequestHeader("LB-Role") String role, @PathVariable("questionId") String questionId);
 
+<<<<<<< HEAD
     @PutMapping("/notices/{noticeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void noticeModify(@RequestHeader("LB-Role") String role,
@@ -61,11 +62,9 @@ public interface AuthServiceClient {
     UserInfoListResponseDto userInfoListByAdmin(@RequestHeader("LB-Role") String role,
                                                 Pageable pageable);
 
-<<<<<<< HEAD
     @PostMapping("/notices")
     @ResponseStatus(HttpStatus.CREATED)
     public void createNotice(@RequestHeader("LB-Role") String role, @Validated @RequestBody NoticeCreateRequestDto dto);
-=======
     @GetMapping("/admin/notices")
     @ResponseStatus(HttpStatus.OK)
     NoticeRetrieveResponse retrieveNotices(@RequestHeader("LB-Role") String role,
@@ -75,6 +74,8 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.OK)
     NoticeDetailRetrieveResponse retrieveNoticeDetail(@RequestHeader("LB-Role") String role,
                                                       @PathVariable String noticeId);
+    @DeleteMapping("/notices/{noticeId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteNotice(@RequestHeader("LB-Role") String role, @PathVariable String noticeId);
 
->>>>>>> dev
 }
