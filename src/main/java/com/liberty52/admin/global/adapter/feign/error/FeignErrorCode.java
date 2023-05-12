@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum FeignErrorCode implements ErrorCode {
 
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "다시 로그인 후 시도해주세요."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "FEIGN_ERROR - 다시 로그인 후 시도해주세요."),
+    FORBIDDEN(HttpStatus.FORBIDDEN, "FEIGN_ERROR - 접근할 권한이 없습니다."),
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "FEIGN_ERROR - 잘못된 요청입니다."),
     ERROR_4XX(HttpStatus.INTERNAL_SERVER_ERROR),
     ERROR_5XX(HttpStatus.INTERNAL_SERVER_ERROR),
     ERROR_UNKNOWN(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -16,7 +18,7 @@ public enum FeignErrorCode implements ErrorCode {
     private static final String DEFAULT_MESSAGE = "시스템에 오류가 발생하였습니다. 관리자에게 문의해주세요.";
     private final HttpStatus httpStatus;
     private final String errorMessage;
-    private final String errorCode = "PF-" + "0".repeat(Math.max(4-String.valueOf(this.ordinal() + 1).length(), 0)) + (this.ordinal() + 1);
+    private final String errorCode = "AF-" + "0".repeat(Math.max(4-String.valueOf(this.ordinal() + 1).length(), 0)) + (this.ordinal() + 1);
 
     FeignErrorCode(HttpStatus httpStatus, String errorMessage) {
         this.httpStatus = httpStatus;

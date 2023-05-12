@@ -1,6 +1,7 @@
 package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.*;
+import com.liberty52.admin.service.controller.dto.NoticeModifyRequestDto;
 import com.liberty52.admin.service.controller.dto.QuestionReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.QuestionReplyModifyRequestDto;
 import feign.Response;
@@ -50,4 +51,9 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<QuestionDetailResponseDto> retrieveQuestionDetail(@RequestHeader("LB-Role") String role, @PathVariable("questionId") String questionId);
 
+    @PutMapping("/notices/{noticeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void noticeModify(@RequestHeader("LB-Role") String role,
+                             @PathVariable String noticeId,
+                             @Validated @RequestBody NoticeModifyRequestDto dto);
 }
