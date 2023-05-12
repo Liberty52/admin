@@ -18,7 +18,7 @@ public class OrderRetrieveController {
 
     @GetMapping("/orders")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrders(
+    public String retrieveOrders(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
             Pageable pageable
@@ -29,7 +29,7 @@ public class OrderRetrieveController {
 
     @GetMapping("/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrderDetail(
+    public String retrieveOrderDetail(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
             @PathVariable String orderId
