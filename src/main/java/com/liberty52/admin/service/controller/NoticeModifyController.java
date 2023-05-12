@@ -4,6 +4,7 @@ import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.service.applicationservice.NoticeModifyService;
 import com.liberty52.admin.service.controller.dto.NoticeModifyRequestDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class NoticeModifyController {
     private final NoticeModifyService noticeModifyService;
 
@@ -19,6 +21,7 @@ public class NoticeModifyController {
     public void noticeModify(@RequestHeader("LB-Role") String role,
                              @PathVariable String noticeId,
                              @Validated @RequestBody NoticeModifyRequestDto dto) {
+        log.info("[LIB LOG] ADMIN {} requests for modifying notice : noticeId={}", "?", noticeId);
         noticeModifyService.modify(role, noticeId, dto);
     }
 }
