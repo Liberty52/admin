@@ -12,26 +12,25 @@ import java.io.IOException;
 public class FeignClientErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
-        log.error("ERROR URL: {}", response.request().url());
         HttpStatus status = HttpStatus.valueOf(response.status());
         String responseMessage = deserializeResponseMessage(response);
 
         if (status.is4xxClientError()) {
             log.error("Feign Client 4xx Error - status: {}, response: {}", status.value(), responseMessage);
 
-            if (status == HttpStatus.UNAUTHORIZED) {
-                return new FeignUnauthorizedException();
-            }
-
-            return new Feign4xxException();
+            return switch (status) {
+                case UNAUTHORIZED -> new FeignUnauthorizedException(responseMessage);
+                case FORBIDDEN -> new FeignForbiddenException(responseMessage);
+                case BAD_REQUEST -> new FeignBadRequestException(responseMessage);
+                default -> new Feign4xxException(responseMessage);
+            };
 
         } else if (status.is5xxServerError()) {
             log.error("Feign Client 5xx Error - status: {}, response message: {}", status.value(), responseMessage);
-            return new Feign5xxException();
+            return new Feign5xxException(responseMessage);
         }
 
-        return new FeignClientException();
-
+        return new FeignClientException(responseMessage);
     }
 
     private String deserializeResponseMessage(Response response) {
