@@ -1,6 +1,5 @@
 package com.liberty52.admin.service.applicationservice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.AdminLoginRequestDto;
 import com.liberty52.admin.global.adapter.feign.dto.AdminLoginResponseDto;
@@ -8,14 +7,13 @@ import com.liberty52.admin.global.exception.external.internalservererror.Interna
 import com.liberty52.admin.global.utils.AdminRoleUtils;
 import com.liberty52.admin.service.controller.dto.LoginRequestDto;
 import com.liberty52.admin.service.controller.dto.LoginResponseDto;
-import feign.Response;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
@@ -24,28 +22,34 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponseDto login(LoginRequestDto requestDto, HttpServletResponse response) {
-        try {
-            Response res = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getId(), requestDto.getPassword()));
-            AdminLoginResponseDto loginUser = new ObjectMapper().readValue(res.body().asInputStream().readAllBytes(), AdminLoginResponseDto.class);
-            AdminRoleUtils.checkRole(loginUser.getRole());
-            this.addHeaders(res, response);
-            return LoginResponseDto.of(loginUser.getName(), loginUser.getRole());
+        ResponseEntity<AdminLoginResponseDto> responseEntity = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getId(), requestDto.getPassword()));
+        AdminLoginResponseDto user = responseEntity.getBody();
 
-        } catch (IOException e) {
+        assertNotNull(requestDto, user);
+        AdminRoleUtils.checkRole(user.getRole());
+
+        this.addHeaders(responseEntity, response);
+        return LoginResponseDto.of(user.getName(), user.getRole());
+    }
+
+    private void assertNotNull(LoginRequestDto requestDto, AdminLoginResponseDto user) {
+        if (user == null) {
+            log.error("Received null that user response of AUTH server during login. Request ID={}", requestDto.getId());
             throw new InternalServerErrorException("로그인 과정에서 오류가 발생하였습니다. 시스템 관리자에게 문의해주세요.");
         }
     }
 
-    private void addHeaders(Response feignResponse, HttpServletResponse response) {
+    private void addHeaders(ResponseEntity<AdminLoginResponseDto> feignResponse, HttpServletResponse response) {
         final String HEADER_ACCESS = "access";
         final String HEADER_REFRESH = "refresh";
-        String access = new ArrayList<>(feignResponse.headers().getOrDefault(HEADER_ACCESS, null)).get(0);
-        String refresh = new ArrayList<>(feignResponse.headers().getOrDefault(HEADER_REFRESH, null)).get(0);
-        if (access != null) {
-            response.addHeader(HEADER_ACCESS, access);
+        String accessToken = feignResponse.getHeaders().getOrDefault(HEADER_ACCESS, null).get(0);
+        String refreshToken = feignResponse.getHeaders().getOrDefault(HEADER_REFRESH, null).get(0);
+        if (accessToken != null) {
+            response.addHeader(HEADER_ACCESS, accessToken);
         }
-        if (refresh != null) {
-            response.addHeader(HEADER_REFRESH, refresh);
+        if (refreshToken != null) {
+            response.addHeader(HEADER_REFRESH,  refreshToken);
         }
     }
+
 }

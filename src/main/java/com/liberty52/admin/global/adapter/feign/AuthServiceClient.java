@@ -4,7 +4,6 @@ import com.liberty52.admin.global.adapter.feign.dto.*;
 import com.liberty52.admin.service.controller.dto.NoticeModifyRequestDto;
 import com.liberty52.admin.service.controller.dto.QuestionReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.QuestionReplyModifyRequestDto;
-import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import java.util.Set;
 public interface AuthServiceClient {
 
     @PostMapping("/login")
-    Response login(@RequestBody AdminLoginRequestDto dto);
+    ResponseEntity<AdminLoginResponseDto> login(@RequestBody AdminLoginRequestDto dto);
 
     @GetMapping(value = "/my")
     AuthProfileDto getAuthProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId);
