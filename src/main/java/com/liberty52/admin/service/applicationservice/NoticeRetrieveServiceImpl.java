@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class NoticeRetrieveServiceImpl implements NoticeRetrieveService {
@@ -17,13 +16,13 @@ public class NoticeRetrieveServiceImpl implements NoticeRetrieveService {
     private final AuthServiceClient authServiceClient;
 
     @Override
-    public NoticeRetrieveResponse retrieveNotices(String adminId, String role, Pageable pageable) {
+    public NoticeRetrieveResponse retrieveNotices(String role, Pageable pageable) {
         AdminRoleUtils.checkRole(role);
         return authServiceClient.retrieveNotices(role, pageable);
     }
 
     @Override
-    public NoticeDetailRetrieveResponse retrieveNoticeDetail(String adminId, String role, String noticeId) {
+    public NoticeDetailRetrieveResponse retrieveNoticeDetail(String role, String noticeId) {
         AdminRoleUtils.checkRole(role);
         return authServiceClient.retrieveNoticeDetail(role, noticeId);
     }

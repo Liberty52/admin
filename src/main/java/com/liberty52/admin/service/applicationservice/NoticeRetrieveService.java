@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface NoticeRetrieveService {
 
-    NoticeRetrieveResponse retrieveNotices(String adminId, String role, Pageable pageable);
+    NoticeRetrieveResponse retrieveNotices(String role, Pageable pageable);
 
-    NoticeDetailRetrieveResponse retrieveNoticeDetail(String adminId, String role, String noticeId);
+    NoticeDetailRetrieveResponse retrieveNoticeDetail(String role, String noticeId);
 
 }
