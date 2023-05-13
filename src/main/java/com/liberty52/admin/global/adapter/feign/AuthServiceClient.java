@@ -65,12 +65,12 @@ public interface AuthServiceClient {
 
     @GetMapping("/admin/notices")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<NoticeRetrieveResponse> retrieveNotices(@RequestHeader("LB-Role") String role,
-                                                           Pageable pageable);
+    NoticeRetrieveResponse retrieveNotices(@RequestHeader("LB-Role") String role,
+                                           Pageable pageable);
 
     @GetMapping("/admin/notices/{noticeId}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<NoticeDetailRetrieveResponse> retrieveNoticeDetail(@RequestHeader("LB-Role") String role,
-                                                                      @PathVariable String noticeId);
-    
+    NoticeDetailRetrieveResponse retrieveNoticeDetail(@RequestHeader("LB-Role") String role,
+                                                      @PathVariable String noticeId);
+
 }
