@@ -1,10 +1,7 @@
 package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.*;
-import com.liberty52.admin.service.controller.dto.NoticeModifyRequestDto;
-import com.liberty52.admin.service.controller.dto.QuestionReplyCreateRequestDto;
-import com.liberty52.admin.service.controller.dto.QuestionReplyModifyRequestDto;
-import com.liberty52.admin.service.controller.dto.UserInfoListResponseDto;
+import com.liberty52.admin.service.controller.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -62,4 +59,8 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.OK)
     UserInfoListResponseDto userInfoListByAdmin(@RequestHeader("LB-Role") String role,
                                                 Pageable pageable);
+
+    @PostMapping("/notices")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createNotice(@RequestHeader("LB-Role") String role, @Validated @RequestBody NoticeCreateRequestDto dto);
 }
