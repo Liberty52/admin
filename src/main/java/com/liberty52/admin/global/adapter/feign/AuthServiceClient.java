@@ -19,8 +19,9 @@ import java.util.Set;
 @FeignClient(value = "auth", primary = false)
 public interface AuthServiceClient {
 
-    @PostMapping("/login")
-    ResponseEntity<AdminLoginResponseDto> login(@RequestBody AdminLoginRequestDto dto);
+    @PostMapping(value = "/login")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<AdminLoginResponseDto> login(AdminLoginRequestDto dto);
 
     @GetMapping(value = "/my")
     AuthProfileDto getAuthProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId);

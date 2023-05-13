@@ -21,6 +21,14 @@ public class FeignClientException extends RuntimeException implements ErrorCode 
         this.causeError = causeError;
     }
 
+    public FeignClientException(FeignErrorCode code) {
+        this.httpStatus = code.getHttpStatus();
+        this.errorCode = code.getErrorCode();
+        this.errorName = code.getErrorName();
+        this.errorMessage = code.getErrorMessage();
+        this.causeError = null;
+    }
+
     public FeignClientException(String causeError) {
         this(FeignErrorCode.ERROR_UNKNOWN, causeError);
     }
