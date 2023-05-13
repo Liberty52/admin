@@ -62,4 +62,15 @@ public interface AuthServiceClient {
     @ResponseStatus(HttpStatus.OK)
     UserInfoListResponseDto userInfoListByAdmin(@RequestHeader("LB-Role") String role,
                                                 Pageable pageable);
+
+    @GetMapping("/admin/notices")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<NoticeRetrieveResponse> retrieveNotices(@RequestHeader("LB-Role") String role,
+                                                           Pageable pageable);
+
+    @GetMapping("/admin/notices/{noticeId}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<NoticeDetailRetrieveResponse> retrieveNoticeDetail(@RequestHeader("LB-Role") String role,
+                                                                      @PathVariable String noticeId);
+    
 }
