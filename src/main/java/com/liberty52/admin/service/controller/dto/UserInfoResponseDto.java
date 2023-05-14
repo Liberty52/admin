@@ -10,6 +10,8 @@ import java.time.LocalDate;
 public class UserInfoResponseDto {
     private String id;
     private String name;
+    private String email;
+    private String profileUrl;
     private String phoneNumber;
     private LocalDate createdAt;
     private String role;
