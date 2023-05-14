@@ -6,39 +6,36 @@ import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 
-import java.io.IOException;
-
 @Slf4j
 public class FeignClientErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
         HttpStatus status = HttpStatus.valueOf(response.status());
-        String responseMessage = deserializeResponseMessage(response);
 
         if (status.is4xxClientError()) {
-            log.error("Feign Client 4xx Error - status: {}, response: {}", status.value(), responseMessage);
+            log.error("Feign Client 4xx Error - status: {}, response: {}", status.value(), response.body());
 
             return switch (status) {
-                case UNAUTHORIZED -> new FeignUnauthorizedException(responseMessage);
-                case FORBIDDEN -> new FeignForbiddenException(responseMessage);
-                case BAD_REQUEST -> new FeignBadRequestException(responseMessage);
-                default -> new Feign4xxException(responseMessage);
+                case UNAUTHORIZED -> new FeignUnauthorizedException();
+                case FORBIDDEN -> new FeignForbiddenException(deserializeResponseMessage(response));
+                case BAD_REQUEST -> new FeignBadRequestException(deserializeResponseMessage(response));
+                default -> new Feign4xxException(deserializeResponseMessage(response));
             };
 
         } else if (status.is5xxServerError()) {
-            log.error("Feign Client 5xx Error - status: {}, response message: {}", status.value(), responseMessage);
-            return new Feign5xxException(responseMessage);
+            log.error("Feign Client 5xx Error - status: {}, response message: {}", status.value(), response.body());
+            return new Feign5xxException(deserializeResponseMessage(response));
         }
 
-        return new FeignClientException(responseMessage);
+        return new FeignClientException(deserializeResponseMessage(response));
     }
 
     private String deserializeResponseMessage(Response response) {
         try {
             return new String(response.body().asInputStream().readAllBytes());
-        } catch (IOException e) {
-            log.error("Feign Client Error - deserialize response");
-            throw new InternalServerErrorException("내부 시스템 사이에 오류가 발생하였습니다.");
+        } catch (Exception e) {
+            log.error("Feign Client Error - deserialize response.\nResponse: {}", response.body());
+            throw new InternalServerErrorException("내부 시스템 간의 통신에서 오류가 발생하였습니다.");
         }
     }
 

@@ -22,14 +22,14 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponseDto login(LoginRequestDto requestDto, HttpServletResponse response) {
-        ResponseEntity<AdminLoginResponseDto> responseEntity = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getId(), requestDto.getPassword()));
-        AdminLoginResponseDto user = responseEntity.getBody();
+        ResponseEntity<AdminLoginResponseDto> feignResponse = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getId(), requestDto.getPassword()));
+        AdminLoginResponseDto user = feignResponse.getBody();
 
         assertNotNull(requestDto, user);
         AdminRoleUtils.checkRole(user.getRole());
 
-        this.addHeaders(responseEntity, response);
-        return LoginResponseDto.of(user.getName(), user.getRole());
+        this.addHeaders(feignResponse, response);
+        return LoginResponseDto.of(feignResponse.getBody().getName(), feignResponse.getBody().getRole());
     }
 
     private void assertNotNull(LoginRequestDto requestDto, AdminLoginResponseDto user) {
@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
-    private void addHeaders(ResponseEntity<AdminLoginResponseDto> feignResponse, HttpServletResponse response) {
+    private void addHeaders(ResponseEntity<?> feignResponse, HttpServletResponse response) {
         final String HEADER_ACCESS = "access";
         final String HEADER_REFRESH = "refresh";
         String accessToken = feignResponse.getHeaders().getOrDefault(HEADER_ACCESS, null).get(0);
