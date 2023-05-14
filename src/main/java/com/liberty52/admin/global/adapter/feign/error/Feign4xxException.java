@@ -8,4 +8,7 @@ public class Feign4xxException extends FeignClientException {
     public Feign4xxException(FeignErrorCode errorCode, String causeError) {
         super(errorCode, causeError);
     }
+    public Feign4xxException(FeignErrorCode errorCode) {
+        super(errorCode);
+    }
 }
