@@ -16,7 +16,7 @@ public class NoticeDeleteController {
   private final NoticeDeleteService noticeDeleteService;
 
   @DeleteMapping("/notices/{noticeId}")
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteNotice(@RequestHeader("LB-Role") String role, @PathVariable String noticeId) {
     noticeDeleteService.deleteNotice(role, noticeId);
   }
