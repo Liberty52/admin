@@ -39,7 +39,10 @@ public class ErrorResponse {
 
     public static ErrorResponse createErrorResponse(ErrorCode errorCode, String path, String causeError) {
         try {
-            ErrorResponse cause = new ObjectMapper().readValue(causeError, ErrorResponse.class);
+            ErrorResponse cause = null;
+            if (causeError != null && !causeError.isBlank()) {
+                cause = new ObjectMapper().readValue(causeError, ErrorResponse.class);
+            }
             return new ErrorResponse(LocalDateTime.now().toString(),errorCode.getHttpStatus(),errorCode.getErrorCode()
                     , errorCode.getErrorName(), errorCode.getErrorMessage(),path, cause);
         } catch (JsonProcessingException e) {

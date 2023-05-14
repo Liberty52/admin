@@ -16,8 +16,9 @@ import java.util.Set;
 @FeignClient(value = "auth", primary = false)
 public interface AuthServiceClient {
 
-    @PostMapping("/login")
-    ResponseEntity<AdminLoginResponseDto> login(@RequestBody AdminLoginRequestDto dto);
+    @PostMapping(value = "/login")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<AdminLoginResponseDto> login(AdminLoginRequestDto dto);
 
     @GetMapping(value = "/my")
     AuthProfileDto getAuthProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId);
@@ -60,7 +61,20 @@ public interface AuthServiceClient {
     UserInfoListResponseDto userInfoListByAdmin(@RequestHeader("LB-Role") String role,
                                                 Pageable pageable);
 
+<<<<<<< HEAD
     @PostMapping("/notices")
     @ResponseStatus(HttpStatus.CREATED)
     public void createNotice(@RequestHeader("LB-Role") String role, @Validated @RequestBody NoticeCreateRequestDto dto);
+=======
+    @GetMapping("/admin/notices")
+    @ResponseStatus(HttpStatus.OK)
+    NoticeRetrieveResponse retrieveNotices(@RequestHeader("LB-Role") String role,
+                                           Pageable pageable);
+
+    @GetMapping("/admin/notices/{noticeId}")
+    @ResponseStatus(HttpStatus.OK)
+    NoticeDetailRetrieveResponse retrieveNoticeDetail(@RequestHeader("LB-Role") String role,
+                                                      @PathVariable String noticeId);
+
+>>>>>>> dev
 }

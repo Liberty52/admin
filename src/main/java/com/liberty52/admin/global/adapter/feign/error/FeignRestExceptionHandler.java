@@ -11,8 +11,11 @@ public class FeignRestExceptionHandler {
 
     @ExceptionHandler(FeignClientException.class)
     public ResponseEntity<ErrorResponse> handleFeignClientException(FeignClientException ex, HttpServletRequest request) {
-        return ResponseEntity.status(ex.getHttpStatus())
-                .body(ErrorResponse.createErrorResponse(ex, request.getRequestURI(), ex.getCauseError()));
+        return ex.getCauseError() != null ?
+                ResponseEntity.status(ex.getHttpStatus())
+                        .body(ErrorResponse.createErrorResponse(ex, request.getRequestURI(), ex.getCauseError())) :
+                ResponseEntity.status(ex.getHttpStatus())
+                        .body(ErrorResponse.createErrorResponse(ex, request.getRequestURI()));
     }
 
 }
