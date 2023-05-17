@@ -17,7 +17,7 @@ public class NoticeRetrieveController {
 
     private final NoticeRetrieveService noticeRetrieveService;
 
-    @GetMapping("/admin/notices")
+    @GetMapping("/notices")
     @ResponseStatus(HttpStatus.OK)
     public NoticeRetrieveResponse retrieveNotices(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                                   @RequestHeader("LB-Role") String role,
@@ -26,7 +26,7 @@ public class NoticeRetrieveController {
         return noticeRetrieveService.retrieveNotices(role, pageable);
     }
 
-    @GetMapping("/admin/notices/{noticeId}")
+    @GetMapping("/notices/{noticeId}")
     @ResponseStatus(HttpStatus.OK)
     public NoticeDetailRetrieveResponse retrieveNoticeDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                                              @RequestHeader("LB-Role") String role,
