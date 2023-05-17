@@ -14,6 +14,5 @@ public class UserInfoResponseDto {
     private String profileUrl;
     private String phoneNumber;
     private LocalDate createdAt;
-    private String role;
 }
 
