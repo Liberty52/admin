@@ -62,10 +62,10 @@ public interface AuthServiceClient {
       @PathVariable String noticeId,
       @Validated @RequestBody NoticeModifyRequestDto dto);
 
-  @GetMapping("/user-info")
+  @GetMapping("/customer-info")
   @ResponseStatus(HttpStatus.OK)
-  UserInfoListResponseDto userInfoListByAdmin(@RequestHeader("LB-Role") String role,
-      Pageable pageable);
+  CustomerInfoListResponseDto customerInfoListByAdmin(@RequestHeader("LB-Role") String role,
+                                                      Pageable pageable);
 
   @PostMapping("/notices")
   @ResponseStatus(HttpStatus.CREATED)
