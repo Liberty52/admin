@@ -1,6 +1,7 @@
 package com.liberty52.admin.service.applicationservice;
 
 import com.liberty52.admin.global.adapter.feign.ProductServiceClient;
+import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,11 @@ public class ReviewRetrieveServiceImpl implements ReviewRetrieveService{
   public ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(String role, Pageable pageable) {
     AdminRoleUtils.checkRole(role);
     return productServiceClient.retrieveAllReviews(role,pageable);
+  }
+
+  @Override
+  public ResponseEntity<AdminReviewDetailResponse> retrieveReviewDetail(String role, String reviewId) {
+    AdminRoleUtils.checkRole(role);
+    return productServiceClient.retrieveReviewDetail(role,reviewId);
   }
 }

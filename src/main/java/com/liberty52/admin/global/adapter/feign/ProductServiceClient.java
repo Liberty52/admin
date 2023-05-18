@@ -1,5 +1,6 @@
 package com.liberty52.admin.global.adapter.feign;
 
+import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
@@ -29,9 +30,11 @@ public interface ProductServiceClient {
                             @Validated @RequestBody ReplyModifyRequestDto dto,
                             @PathVariable String reviewId,
                             @PathVariable String replyId);
-    @GetMapping("/reviews")
-    ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-Role") String role,
-        Pageable pageable);
+    @GetMapping("/admin/reviews")
+    ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-Role") String role, Pageable pageable);
+
+    @GetMapping("/admin/reviews/{reviewId}")
+    ResponseEntity<AdminReviewDetailResponse> retrieveReviewDetail(@RequestHeader("LB-Role") String role, @PathVariable String reviewId);
 
     @DeleteMapping("/customerReviews/{reviewId}")
     @ResponseStatus(HttpStatus.OK)
