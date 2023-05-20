@@ -1,7 +1,6 @@
 package com.liberty52.admin.global.adapter.feign;
 
-import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
+import com.liberty52.admin.global.adapter.feign.dto.*;
 import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
 import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
@@ -45,19 +44,34 @@ public interface ProductServiceClient {
 
     @GetMapping("/admin/orders")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrders(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("LB-Role") String role,
-            Pageable pageable
-    );
+    AdminOrderListResponse retrieveOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                          @RequestHeader("LB-Role") String role,
+                          Pageable pageable);
 
     @GetMapping("/admin/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrderDetail(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("LB-Role") String role,
-            @PathVariable String orderId
-    );
+    AdminOrderDetailRetrieveResponse retrieveOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                         @RequestHeader("LB-Role") String role,
+                                                         @PathVariable String orderId);
+
+    @PostMapping("/orders/refund")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void refundCustomerOrder(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                             @RequestHeader("LB-Role") String role,
+                             @RequestBody AdminOrderRefundDto.Request request);
+
+    @GetMapping("/admin/orders/cancel")
+    @ResponseStatus(HttpStatus.OK)
+    AdminCanceledOrderListResponse retrieveCanceledOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                          @RequestHeader("LB-Role") String role,
+                                                          Pageable pageable,
+                                                          @RequestParam(value = "type", required = false) String type);
+
+    @GetMapping("/admin/orders/cancel/{orderId}")
+    @ResponseStatus(HttpStatus.OK)
+    AdminCanceledOrderDetailResponse retrieveCanceledOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                                 @RequestHeader("LB-Role") String role,
+                                                                 @PathVariable String orderId);
 
     @GetMapping("/productOptionInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
@@ -70,4 +84,5 @@ public interface ProductServiceClient {
     @GetMapping("/productInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
+
 }
