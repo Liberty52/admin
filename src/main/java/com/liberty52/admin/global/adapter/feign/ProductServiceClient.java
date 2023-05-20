@@ -1,6 +1,8 @@
 package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.*;
+import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
+import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
