@@ -1,8 +1,6 @@
 package com.liberty52.admin.global.adapter.feign;
 
-import com.liberty52.admin.global.adapter.feign.dto.AdminOrderRefundDto;
-import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
+import com.liberty52.admin.global.adapter.feign.dto.*;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,11 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
@@ -62,5 +55,18 @@ public interface ProductServiceClient {
     void refundCustomerOrder(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                              @RequestHeader("LB-Role") String role,
                              @RequestBody AdminOrderRefundDto.Request request);
+
+    @GetMapping("/admin/orders/cancel")
+    @ResponseStatus(HttpStatus.OK)
+    AdminCanceledOrderListResponse retrieveCanceledOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                          @RequestHeader("LB-Role") String role,
+                                                          Pageable pageable,
+                                                          @RequestParam(value = "type", required = false) String type);
+
+    @GetMapping("/admin/orders/cancel/{orderId}")
+    @ResponseStatus(HttpStatus.OK)
+    AdminCanceledOrderDetailResponse retrieveCanceledOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                                 @RequestHeader("LB-Role") String role,
+                                                                 @PathVariable String orderId);
 
 }
