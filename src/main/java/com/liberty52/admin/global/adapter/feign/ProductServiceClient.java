@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
     @PostMapping("/reviews/{reviewId}/replies")
@@ -69,4 +71,21 @@ public interface ProductServiceClient {
                                                                  @RequestHeader("LB-Role") String role,
                                                                  @PathVariable String orderId);
 
+    String retrieveOrderDetail(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+            @RequestHeader("LB-Role") String role,
+            @PathVariable String orderId
+    );
+
+    @GetMapping("/productOptionInfo/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(@PathVariable String productId);
+
+    @GetMapping("/productInfo")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(@RequestHeader("LB-Role") String role);
+
+    @GetMapping("/productInfo/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
 }
