@@ -4,15 +4,16 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class AdminReviewDetailResponse {
 
   private AdminReviewContent content;
 
   @Data
-  @AllArgsConstructor
   public static class AdminReviewContent {
     private Integer rating;
     private String content;
