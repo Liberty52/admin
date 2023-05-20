@@ -2,6 +2,7 @@ package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
+import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+
+import java.util.List;
 
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
@@ -59,4 +62,8 @@ public interface ProductServiceClient {
             @RequestHeader("LB-Role") String role,
             @PathVariable String orderId
     );
+
+    @GetMapping("/productOptionInfo/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(@PathVariable String productId);
 }
