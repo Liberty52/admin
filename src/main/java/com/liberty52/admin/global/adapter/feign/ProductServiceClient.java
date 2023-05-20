@@ -49,8 +49,8 @@ public interface ProductServiceClient {
     @GetMapping("/admin/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
     AdminOrderDetailRetrieveResponse retrieveOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-                               @RequestHeader("LB-Role") String role,
-                               @PathVariable String orderId);
+                                                         @RequestHeader("LB-Role") String role,
+                                                         @PathVariable String orderId);
 
     @PostMapping("/orders/refund")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -71,12 +71,6 @@ public interface ProductServiceClient {
                                                                  @RequestHeader("LB-Role") String role,
                                                                  @PathVariable String orderId);
 
-    String retrieveOrderDetail(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("LB-Role") String role,
-            @PathVariable String orderId
-    );
-
     @GetMapping("/productOptionInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductOptionResponseDto> retrieveProductOptionInfoList(@PathVariable String productId);
@@ -88,4 +82,5 @@ public interface ProductServiceClient {
     @GetMapping("/productInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
+
 }
