@@ -2,6 +2,7 @@ package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
+import com.liberty52.admin.service.controller.dto.CreateOptionDetailRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -59,4 +60,9 @@ public interface ProductServiceClient {
             @RequestHeader("LB-Role") String role,
             @PathVariable String orderId
     );
+
+    @PostMapping("/optionDetail/{optionId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createOptionDetail(@RequestHeader("LB-Role") String role,
+                                   @Validated @RequestBody CreateOptionDetailRequestDto dto, @PathVariable String optionId);
 }
