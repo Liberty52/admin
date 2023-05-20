@@ -1,10 +1,7 @@
 package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.*;
-import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
-import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
-import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
-import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
+import com.liberty52.admin.service.controller.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -85,4 +82,7 @@ public interface ProductServiceClient {
     @ResponseStatus(HttpStatus.OK)
     public ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
 
+    @DeleteMapping("/optionDetail/{optionDetailId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void removeOptionDetail(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailRemoveRequestDto dto);
 }
