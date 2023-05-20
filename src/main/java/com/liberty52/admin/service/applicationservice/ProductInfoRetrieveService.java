@@ -5,7 +5,7 @@ import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto
 import java.util.List;
 
 public interface ProductInfoRetrieveService {
-    List<ProductInfoRetrieveResponseDto> retrieveProductInfoList(String role);
+    List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(String role);
 
-    ProductInfoRetrieveResponseDto retrieveProductInfo(String role, String productId);
+    ProductInfoRetrieveResponseDto retrieveProductByAdmin(String role, String productId);
 }

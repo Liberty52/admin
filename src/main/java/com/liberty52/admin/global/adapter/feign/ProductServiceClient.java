@@ -65,9 +65,9 @@ public interface ProductServiceClient {
 
     @GetMapping("/productInfo")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductInfoRetrieveResponseDto> retrieveProductInfoList(@RequestHeader("LB-Role") String role);
+    public List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(@RequestHeader("LB-Role") String role);
 
     @GetMapping("/productInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductInfoRetrieveResponseDto retrieveProductInfo(@RequestHeader("LB-Role") String role, @PathVariable String productId);
+    public ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
 }

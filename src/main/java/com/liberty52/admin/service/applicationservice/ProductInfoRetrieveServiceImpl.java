@@ -19,18 +19,18 @@ public class ProductInfoRetrieveServiceImpl implements ProductInfoRetrieveServic
     private final ProductServiceClient productServiceClient;
 
     @Override
-    public List<ProductInfoRetrieveResponseDto> retrieveProductInfoList(String role) {
+    public List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(String role) {
         if(!ADMIN.equals(role)) {
             throw new InvalidRoleException(role);
         }
-        return productServiceClient.retrieveProductInfoList(role);
+        return productServiceClient.retrieveProductListByAdmin(role);
     }
 
     @Override
-    public ProductInfoRetrieveResponseDto retrieveProductInfo(String role, String productId) {
+    public ProductInfoRetrieveResponseDto retrieveProductByAdmin(String role, String productId) {
         if(!ADMIN.equals(role)) {
             throw new InvalidRoleException(role);
         }
-        return productServiceClient.retrieveProductInfo(role, productId);
+        return productServiceClient.retrieveProductByAdmin(role, productId);
     }
 }
