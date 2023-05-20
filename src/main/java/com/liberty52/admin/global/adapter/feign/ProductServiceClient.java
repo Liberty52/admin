@@ -1,5 +1,6 @@
 package com.liberty52.admin.global.adapter.feign;
 
+import com.liberty52.admin.global.adapter.feign.dto.AdminOrderRefundDto;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
@@ -46,17 +47,20 @@ public interface ProductServiceClient {
 
     @GetMapping("/admin/orders")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrders(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("LB-Role") String role,
-            Pageable pageable
-    );
+    String retrieveOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                          @RequestHeader("LB-Role") String role,
+                          Pageable pageable);
 
     @GetMapping("/admin/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrderDetail(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
-            @RequestHeader("LB-Role") String role,
-            @PathVariable String orderId
-    );
+    String retrieveOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                               @RequestHeader("LB-Role") String role,
+                               @PathVariable String orderId);
+
+    @PostMapping("/orders/refund")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void refundCustomerOrder(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                             @RequestHeader("LB-Role") String role,
+                             @RequestBody AdminOrderRefundDto.Request request);
+
 }
