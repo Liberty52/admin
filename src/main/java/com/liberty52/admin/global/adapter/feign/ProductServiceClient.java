@@ -40,13 +40,13 @@ public interface ProductServiceClient {
 
     @GetMapping("/admin/orders")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    AdminOrderListResponse retrieveOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                           @RequestHeader("LB-Role") String role,
                           Pageable pageable);
 
     @GetMapping("/admin/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
-    String retrieveOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    AdminOrderDetailRetrieveResponse retrieveOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                @RequestHeader("LB-Role") String role,
                                @PathVariable String orderId);
 
