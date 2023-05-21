@@ -19,7 +19,7 @@ public class OrderStatusModifyController {
 
   private final OrderStatusModifyService orderStatusModifyService;
   @PutMapping("/orders/{orderId}/status")
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void modifyOrderStatus(
       @RequestHeader("LB-Role") String role, @PathVariable String orderId,
       @RequestParam String orderStatus) {
@@ -27,7 +27,7 @@ public class OrderStatusModifyController {
   }
 
   @PutMapping("/orders/{orderId}/vbank")
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void modifyOrderStatusOfVBank(
       @RequestHeader("LB-Role") String role, @PathVariable String orderId,
       @Validated @RequestBody AdminVBankStatusModifyDto dto) {
