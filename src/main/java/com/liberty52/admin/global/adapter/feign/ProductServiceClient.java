@@ -1,5 +1,8 @@
 package com.liberty52.admin.global.adapter.feign;
 
+import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
+import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
+import com.liberty52.admin.service.controller.dto.CreateOptionDetailRequestDto;
 import com.liberty52.admin.global.adapter.feign.dto.*;
 import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
 import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
@@ -47,6 +50,11 @@ public interface ProductServiceClient {
     AdminOrderListResponse retrieveOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                           @RequestHeader("LB-Role") String role,
                           Pageable pageable);
+
+    @PostMapping("/optionDetail/{optionId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createOptionDetail(@RequestHeader("LB-Role") String role,
+                                   @Validated @RequestBody CreateOptionDetailRequestDto dto, @PathVariable String optionId);
 
     @GetMapping("/admin/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
