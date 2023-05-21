@@ -15,6 +15,7 @@ public class AdminReviewDetailResponse {
 
   @Data
   public static class AdminReviewContent {
+    private String reviewId;
     private Integer rating;
     private String content;
     private List<String> imageUrls;
