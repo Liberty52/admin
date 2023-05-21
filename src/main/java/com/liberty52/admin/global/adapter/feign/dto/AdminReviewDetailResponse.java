@@ -19,6 +19,7 @@ public class AdminReviewDetailResponse {
     private String content;
     private List<String> imageUrls;
     private String authorId;
+    private String authorName;
     private LocalDate reviewCreatedAt;
     private List<ReplyContent> replies;
   }
@@ -26,6 +27,7 @@ public class AdminReviewDetailResponse {
   @Data
   public static class ReplyContent{
     private String authorId;
+    private String authorName;
     private String content;
     private String replyId;
     private LocalDate replyCreatedAt;

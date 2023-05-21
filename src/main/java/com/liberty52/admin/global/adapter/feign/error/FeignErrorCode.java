@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 public enum FeignErrorCode implements ErrorCode {
 
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "FEIGN_ERROR - 로그인이 안 되어있거나 실패하였습니다."),
-    FORBIDDEN(HttpStatus.FORBIDDEN, "FEIGN_ERROR - 접근할 권한이 없습니다."),
-    BAD_REQUEST(HttpStatus.BAD_REQUEST, "FEIGN_ERROR - 잘못된 요청입니다."),
+    FORBIDDEN(HttpStatus.FORBIDDEN, "FEIGN_ERROR - 접근할 권한이 없습니다. 자세한 내용은 cause를 확인해주세요."),
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "FEIGN_ERROR - 잘못된 요청입니다. 자세한 내용은 cause를 확인해주세요."),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "FEIGN_ERROR - 리소스가 없습니다. 자세한 내용은 cause를 확인해주세요."),
     ERROR_4XX(HttpStatus.INTERNAL_SERVER_ERROR),
     ERROR_5XX(HttpStatus.INTERNAL_SERVER_ERROR),
     ERROR_UNKNOWN(HttpStatus.INTERNAL_SERVER_ERROR)

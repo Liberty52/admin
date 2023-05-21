@@ -16,9 +16,10 @@ public class FeignClientErrorDecoder implements ErrorDecoder {
             log.error("Feign Client 4xx Error - status: {}, response: {}", status.value(), response.body());
 
             return switch (status) {
+                case BAD_REQUEST -> new FeignBadRequestException(deserializeResponseMessage(response));
                 case UNAUTHORIZED -> new FeignUnauthorizedException();
                 case FORBIDDEN -> new FeignForbiddenException(deserializeResponseMessage(response));
-                case BAD_REQUEST -> new FeignBadRequestException(deserializeResponseMessage(response));
+                case NOT_FOUND -> new FeignNotFoundException(deserializeResponseMessage(response));
                 default -> new Feign4xxException(deserializeResponseMessage(response));
             };
 
