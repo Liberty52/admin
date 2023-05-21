@@ -64,12 +64,12 @@ public interface ProductServiceClient {
     void refundCustomerOrder(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                              @RequestHeader("LB-Role") String role,
                              @RequestBody AdminOrderRefundDto.Request request);
-    @PatchMapping("/admin/orders/{orderId}/status")
+    @PutMapping("/admin/orders/{orderId}/status")
     @ResponseStatus(HttpStatus.OK)
     void modifyOrderStatus(@RequestHeader("LB-Role") String role, @PathVariable String orderId,
         @RequestParam String orderStatus);
 
-    @PatchMapping("/admin/orders/{orderId}/vbank")
+    @PutMapping("/admin/orders/{orderId}/vbank")
     @ResponseStatus(HttpStatus.OK)
     void modifyOrderStatusOfVBank(@RequestHeader("LB-Role") String role, @PathVariable String orderId,
         @Validated @RequestBody AdminVBankStatusModifyDto dto);
