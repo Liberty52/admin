@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductOptionDetailResponseDto {
 
+    String optionDetailId;
     String optionDetailName;
     int price;
     boolean onSail;

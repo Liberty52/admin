@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductOptionResponseDto {
 
+    String optionId;
     String optionName;
     boolean require;
     boolean onSail;
