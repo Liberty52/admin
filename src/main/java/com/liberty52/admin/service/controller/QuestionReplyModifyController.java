@@ -17,11 +17,11 @@ public class QuestionReplyModifyController {
 
     @PutMapping("/questionReplies/{questionReplyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void questionReplyModify(
+    public void modifyQuestionReply(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
             @Validated @RequestBody QuestionReplyModifyRequestDto dto, @PathVariable String questionReplyId) {
-        questionReplyModifyService.modify(dto,questionReplyId,adminId,role);
+        questionReplyModifyService.modifyQuestionReply(dto,questionReplyId,adminId,role);
     }
 
 }

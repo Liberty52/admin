@@ -1,7 +1,9 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.exception.external.forbidden.InvalidRoleException;
+import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.QuestionReplyDeleteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +19,7 @@ public class QuestionReplyDeleteServiceImpl implements QuestionReplyDeleteServic
 
     @Override
     public void deleteQuestionReply(String adminId, String role, String questionReplyId) {
-        if(!ADMIN.equals(role)) {
-            throw new InvalidRoleException(role);
-        }
-
-        authServiceClient.deleteQuestionReply(adminId, role, questionReplyId);
+        AdminRoleUtils.checkRole(role);
+        authServiceClient.deleteQuestionReplyByAdmin(adminId, role, questionReplyId);
     }
 }

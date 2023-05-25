@@ -16,7 +16,7 @@ public class QuestionReplyCreateController {
 
     @PostMapping("/questionReplies")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createQuestion(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @Validated @RequestBody QuestionReplyCreateRequestDto dto) {
+    public void createQuestionReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @Validated @RequestBody QuestionReplyCreateRequestDto dto) {
         questionReplyCreateService.createQuestionReply(adminId, role, dto);
     }
 }

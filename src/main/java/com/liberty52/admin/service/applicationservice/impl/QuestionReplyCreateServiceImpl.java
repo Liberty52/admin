@@ -1,7 +1,9 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.exception.external.forbidden.InvalidRoleException;
+import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.QuestionReplyCreateService;
 import com.liberty52.admin.service.controller.dto.QuestionReplyCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,7 @@ public class QuestionReplyCreateServiceImpl implements QuestionReplyCreateServic
 
     @Override
     public void createQuestionReply(String adminId, String role, QuestionReplyCreateRequestDto dto) {
-        if(!ADMIN.equals(role)) {
-            throw new InvalidRoleException(role);
-        }
-        authServiceClient.createQuestionReply(adminId, role, dto);
+        AdminRoleUtils.checkRole(role);
+        authServiceClient.createQuestionReplyByAdmin(adminId, role, dto);
     }
 }

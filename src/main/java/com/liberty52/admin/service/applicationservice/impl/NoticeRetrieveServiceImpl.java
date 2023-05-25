@@ -1,11 +1,11 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.NoticeDetailRetrieveResponse;
 import com.liberty52.admin.global.adapter.feign.dto.NoticeRetrieveResponse;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.NoticeRetrieveService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +18,12 @@ public class NoticeRetrieveServiceImpl implements NoticeRetrieveService {
     @Override
     public NoticeRetrieveResponse retrieveNotices(String role, Pageable pageable) {
         AdminRoleUtils.checkRole(role);
-        return authServiceClient.retrieveNotices(role, pageable);
+        return authServiceClient.retrieveNoticesByAdmin(role, pageable);
     }
 
     @Override
     public NoticeDetailRetrieveResponse retrieveNoticeDetail(String role, String noticeId) {
         AdminRoleUtils.checkRole(role);
-        return authServiceClient.retrieveNoticeDetail(role, noticeId);
+        return authServiceClient.retrieveNoticeDetailByAdmin(role, noticeId);
     }
 }

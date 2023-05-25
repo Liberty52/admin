@@ -1,8 +1,9 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.ProductServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.AdminOrderRefundDto;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.OrderCancelService;
 import com.liberty52.admin.service.controller.dto.OrderRefundDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,6 @@ public class OrderCancelServiceImpl implements OrderCancelService {
 
         AdminOrderRefundDto.Request requestDto = AdminOrderRefundDto.Request.of(request.getOrderId(), request.getFee());
 
-        productServiceClient.refundCustomerOrder(adminId, role, requestDto);
+        productServiceClient.refundCustomerOrderByAdmin(adminId, role, requestDto);
     }
 }

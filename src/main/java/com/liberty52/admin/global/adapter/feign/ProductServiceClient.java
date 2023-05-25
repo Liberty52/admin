@@ -1,105 +1,121 @@
 package com.liberty52.admin.global.adapter.feign;
 
+import com.liberty52.admin.global.adapter.feign.dto.AdminCanceledOrderDetailResponse;
+import com.liberty52.admin.global.adapter.feign.dto.AdminCanceledOrderListResponse;
+import com.liberty52.admin.global.adapter.feign.dto.AdminOrderDetailRetrieveResponse;
+import com.liberty52.admin.global.adapter.feign.dto.AdminOrderListResponse;
+import com.liberty52.admin.global.adapter.feign.dto.AdminOrderRefundDto;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
+import com.liberty52.admin.global.adapter.feign.dto.AdminVBankStatusModifyDto;
 import com.liberty52.admin.service.controller.dto.CreateOptionDetailRequestDto;
-import com.liberty52.admin.global.adapter.feign.dto.*;
-import com.liberty52.admin.service.controller.dto.*;
+import com.liberty52.admin.service.controller.dto.OptionDetailRemoveRequestDto;
+import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
+import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
+import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
+import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
+import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
-    @PostMapping("/reviews/{reviewId}/replies")
-    void replyCreate(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    @PostMapping("/admin/reviews/{reviewId}/replies")
+    void createReviewReplyByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
         @RequestHeader("LB-Role") String role,
         @Validated @RequestBody ReplyCreateRequestDto dto, @PathVariable String reviewId) ;
 
-    @PutMapping("/reviews/{reviewId}/replies/{replyId}")
-    void replyModify(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    @PutMapping("/admin/reviews/{reviewId}/replies/{replyId}")
+    void modifyReviewReplyByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                             @RequestHeader("LB-Role") String role,
                             @Validated @RequestBody ReplyModifyRequestDto dto,
                             @PathVariable String reviewId,
                             @PathVariable String replyId);
     @GetMapping("/admin/reviews")
-    ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(@RequestHeader("LB-Role") String role, Pageable pageable);
+    ResponseEntity<AdminReviewRetrieveResponse> retrieveReviewByAdmin(@RequestHeader("LB-Role") String role, Pageable pageable);
 
     @GetMapping("/admin/reviews/{reviewId}")
-    ResponseEntity<AdminReviewDetailResponse> retrieveReviewDetail(@RequestHeader("LB-Role") String role, @PathVariable String reviewId);
+    ResponseEntity<AdminReviewDetailResponse> retrieveReviewDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String reviewId);
 
-    @DeleteMapping("/customerReviews/{reviewId}")
+    @DeleteMapping("/admin/customerReviews/{reviewId}")
     @ResponseStatus(HttpStatus.OK)
-    void removeCustomerReview(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String reviewId);
+    void removeCustomerReviewByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String reviewId);
 
-    @DeleteMapping("/reviews/replies/{replyId}")
+    @DeleteMapping("/admin/reviews/replies/{replyId}")
     @ResponseStatus(HttpStatus.OK)
-    void removeReply(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String replyId);
+    void removeReplyByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId, @RequestHeader("LB-Role") String role, @PathVariable String replyId);
 
     @GetMapping("/admin/orders")
     @ResponseStatus(HttpStatus.OK)
-    AdminOrderListResponse retrieveOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    AdminOrderListResponse retrieveOrdersByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                           @RequestHeader("LB-Role") String role,
                           Pageable pageable);
 
-    @PostMapping("/optionDetail/{optionId}")
+    @PostMapping("/admin/optionDetail/{optionId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOptionDetail(@RequestHeader("LB-Role") String role,
+    void createOptionDetailByAdmin(@RequestHeader("LB-Role") String role,
                                    @Validated @RequestBody CreateOptionDetailRequestDto dto, @PathVariable String optionId);
 
     @GetMapping("/admin/orders/{orderId}")
     @ResponseStatus(HttpStatus.OK)
-    AdminOrderDetailRetrieveResponse retrieveOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    AdminOrderDetailRetrieveResponse retrieveOrderDetailByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                                          @RequestHeader("LB-Role") String role,
                                                          @PathVariable String orderId);
 
-    @PostMapping("/orders/refund")
+    @PostMapping("/admin/orders/refund")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void refundCustomerOrder(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    void refundCustomerOrderByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                              @RequestHeader("LB-Role") String role,
                              @RequestBody AdminOrderRefundDto.Request request);
     @PutMapping("/admin/orders/{orderId}/status")
     @ResponseStatus(HttpStatus.OK)
-    void modifyOrderStatus(@RequestHeader("LB-Role") String role, @PathVariable String orderId,
+    void modifyOrderStatusByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String orderId,
         @RequestParam String orderStatus);
 
     @PutMapping("/admin/orders/{orderId}/vbank")
     @ResponseStatus(HttpStatus.OK)
-    void modifyOrderStatusOfVBank(@RequestHeader("LB-Role") String role, @PathVariable String orderId,
+    void modifyOrderStatusOfVBankByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String orderId,
         @Validated @RequestBody AdminVBankStatusModifyDto dto);
 
     @GetMapping("/admin/orders/cancel")
     @ResponseStatus(HttpStatus.OK)
-    AdminCanceledOrderListResponse retrieveCanceledOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    AdminCanceledOrderListResponse retrieveCanceledOrdersByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                                           @RequestHeader("LB-Role") String role,
                                                           Pageable pageable,
                                                           @RequestParam(value = "type", required = false) String type);
 
     @GetMapping("/admin/orders/cancel/{orderId}")
     @ResponseStatus(HttpStatus.OK)
-    AdminCanceledOrderDetailResponse retrieveCanceledOrderDetail(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+    AdminCanceledOrderDetailResponse retrieveCanceledOrderDetailByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                                                  @RequestHeader("LB-Role") String role,
                                                                  @PathVariable String orderId);
 
     @GetMapping("/productOptionInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(@PathVariable String productId);
+    List<ProductOptionResponseDto> retrieveProductOptionInfoList(@PathVariable String productId);
 
-    @GetMapping("/productInfo")
+    @GetMapping("/admin/productInfo")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(@RequestHeader("LB-Role") String role);
+    List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(@RequestHeader("LB-Role") String role);
 
-    @GetMapping("/productInfo/{productId}")
+    @GetMapping("/admin/productInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
+    ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
 
-    @DeleteMapping("/optionDetail/{optionDetailId}")
+    @DeleteMapping("/admin/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
-    public void removeOptionDetail(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailRemoveRequestDto dto);
+    void removeOptionDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailRemoveRequestDto dto);
 }

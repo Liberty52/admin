@@ -1,10 +1,11 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.AdminLoginRequestDto;
 import com.liberty52.admin.global.adapter.feign.dto.AdminLoginResponseDto;
 import com.liberty52.admin.global.exception.external.internalservererror.InternalServerErrorException;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.LoginService;
 import com.liberty52.admin.service.controller.dto.LoginRequestDto;
 import com.liberty52.admin.service.controller.dto.LoginResponseDto;
 import jakarta.servlet.http.HttpServletResponse;

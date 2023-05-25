@@ -4,5 +4,5 @@ import com.liberty52.admin.service.controller.dto.CustomerInfoListResponseDto;
 import org.springframework.data.domain.Pageable;
 
 public interface CustomerInfoRetrieveService {
-    CustomerInfoListResponseDto retrieveAllByAdmin(String role, Pageable pageable);
+    CustomerInfoListResponseDto retrieveCustomerInfo(String role, Pageable pageable);
 }

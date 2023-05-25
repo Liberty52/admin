@@ -1,7 +1,8 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.AuthServiceClient;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.NoticeCreateService;
 import com.liberty52.admin.service.controller.dto.NoticeCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,6 @@ public class NoticeCreateServiceImpl implements NoticeCreateService {
     @Override
     public void createNotice(String role, NoticeCreateRequestDto dto) {
         AdminRoleUtils.checkRole(role);
-        authServiceClient.createNotice(role, dto);
+        authServiceClient.createNoticeByAdmin(role, dto);
     }
 }
