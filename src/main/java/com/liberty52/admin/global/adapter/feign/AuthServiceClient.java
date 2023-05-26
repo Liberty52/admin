@@ -44,7 +44,7 @@ public interface AuthServiceClient {
   @PostMapping("/info")
   Map<String, AuthClientDataResponse> retrieveAuthData(@RequestBody Set<String> ids);
 
-  @PutMapping("/admin//questionReplies/{questionReplyId}")
+  @PutMapping("/admin/questionReplies/{questionReplyId}")
   void modifyQuestionReplyByAdmin(
       @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
       @RequestHeader("LB-Role") String role,
