@@ -19,9 +19,9 @@ public class CustomerInfoRetrieveController {
 
     @GetMapping("/customer-info")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerInfoListResponseDto customerInfoListByAdmin(@RequestHeader("LB-Role") String role,
+    public CustomerInfoListResponseDto retrieveCustomerInfo(@RequestHeader("LB-Role") String role,
                                                                Pageable pageable) {
         log.info("[LIB LOG] ADMIN {} requests for retrieving user information", "?");
-        return customerInfoRetrieveService.retrieveAllByAdmin(role, pageable);
+        return customerInfoRetrieveService.retrieveCustomerInfo(role, pageable);
     }
 }

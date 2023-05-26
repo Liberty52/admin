@@ -16,10 +16,10 @@ public class NoticeModifyController {
 
     @PutMapping("/notices/{noticeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void noticeModify(@RequestHeader("LB-Role") String role,
+    public void modifyNotice(@RequestHeader("LB-Role") String role,
                              @PathVariable String noticeId,
                              @Validated @RequestBody NoticeModifyRequestDto dto) {
         log.info("[LIB LOG] ADMIN {} requests for modifying notice : noticeId={}", "?", noticeId);
-        noticeModifyService.modify(role, noticeId, dto);
+        noticeModifyService.modifyNotice(role, noticeId, dto);
     }
 }

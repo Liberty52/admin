@@ -1,29 +1,29 @@
-package com.liberty52.admin.service.applicationservice;
+package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.ProductServiceClient;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
+import com.liberty52.admin.service.applicationservice.ReviewRetrieveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class ReviewRetrieveServiceImpl implements ReviewRetrieveService{
+public class ReviewRetrieveServiceImpl implements ReviewRetrieveService {
   private final ProductServiceClient productServiceClient;
 
   @Override
   public ResponseEntity<AdminReviewRetrieveResponse> retrieveAllReviews(String role, Pageable pageable) {
     AdminRoleUtils.checkRole(role);
-    return productServiceClient.retrieveAllReviews(role,pageable);
+    return productServiceClient.retrieveReviewByAdmin(role,pageable);
   }
 
   @Override
   public ResponseEntity<AdminReviewDetailResponse> retrieveReviewDetail(String role, String reviewId) {
     AdminRoleUtils.checkRole(role);
-    return productServiceClient.retrieveReviewDetail(role,reviewId);
+    return productServiceClient.retrieveReviewDetailByAdmin(role,reviewId);
   }
 }

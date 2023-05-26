@@ -1,6 +1,6 @@
 package com.liberty52.admin.service.controller;
 
-import com.liberty52.admin.service.applicationservice.ReplyCreateService;
+import com.liberty52.admin.service.applicationservice.ReviewReplyCreateService;
 import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class ReplyCreateController {
+public class ReviewReplyCreateController {
 
-    private final ReplyCreateService replyCreateService;
+    private final ReviewReplyCreateService reviewReplyCreateService;
 
 
     @PostMapping("/reviews/{reviewId}/replies")
-    public ResponseEntity<Void> replyCreate(
+    public ResponseEntity<Void> createReviewReply(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
             @RequestHeader("LB-Role") String role,
             @Validated @RequestBody ReplyCreateRequestDto dto, @PathVariable String reviewId) {
-        replyCreateService.createReply(dto,reviewId,adminId,role);
+        reviewReplyCreateService.createReviewReply(dto,reviewId,adminId,role);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

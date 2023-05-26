@@ -15,7 +15,7 @@ public class NoticeCreateController {
 
     @PostMapping("/notices")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createQuestion(@RequestHeader("LB-Role") String role, @Validated @RequestBody NoticeCreateRequestDto dto) {
+    public void createNotice(@RequestHeader("LB-Role") String role, @Validated @RequestBody NoticeCreateRequestDto dto) {
         noticeCreateService.createNotice(role, dto);
     }
 }
