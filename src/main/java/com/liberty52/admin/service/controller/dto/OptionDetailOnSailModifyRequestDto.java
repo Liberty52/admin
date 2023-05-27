@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 public class OptionDetailOnSailModifyRequestDto {
     @NotNull
-    Boolean onSail;
+    Boolean onSale;
 }

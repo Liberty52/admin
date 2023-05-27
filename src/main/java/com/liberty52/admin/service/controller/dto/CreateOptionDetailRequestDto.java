@@ -14,5 +14,5 @@ public class CreateOptionDetailRequestDto {
     Integer price;
 
     @NotNull
-    Boolean onSail;
+    Boolean onSale;
 }
