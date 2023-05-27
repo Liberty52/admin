@@ -14,13 +14,13 @@ public class OptionDetailModifyController {
 
     private final OptionDetailModifyService optionDetailModifyService;
 
-    @PatchMapping("/admin/optionDetail/{optionDetailId}")
+    @PatchMapping("/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
     public void modifyOptionDetail(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailModifyRequestDto dto) {
         optionDetailModifyService.modifyOptionDetail(role, optionDetailId, dto);
     }
 
-    @PutMapping("/admin/optionDetail/{optionDetailId}")
+    @PutMapping("/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
     public void modifyOptionDetailOnSailState(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailOnSailModifyRequestDto dto) {
         optionDetailModifyService.modifyOptionDetailOnSailState(role, optionDetailId, dto);
