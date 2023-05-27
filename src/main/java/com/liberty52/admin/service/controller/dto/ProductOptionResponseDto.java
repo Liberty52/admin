@@ -14,6 +14,6 @@ public class ProductOptionResponseDto {
     String optionId;
     String optionName;
     boolean require;
-    boolean onSail;
+    boolean onSale;
     List<ProductOptionDetailResponseDto> optionDetailList;
 }

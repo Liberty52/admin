@@ -14,5 +14,5 @@ public class CreateProductOptionRequestDto {
     Boolean require;
 
     @NotNull
-    Boolean onSail;
+    Boolean onSale;
 }

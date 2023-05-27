@@ -5,13 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class CreateOptionDetailRequestDto {
+public class ProductOptionModifyRequestDto {
 
     @NotBlank
     String name;
 
     @NotNull
-    Integer price;
+    Boolean require;
 
     @NotNull
     Boolean onSale;
