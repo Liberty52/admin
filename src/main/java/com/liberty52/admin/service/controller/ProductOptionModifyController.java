@@ -1,8 +1,8 @@
 package com.liberty52.admin.service.controller;
 
-import com.liberty52.admin.service.applicationservice.OptionDetailModifyService;
-import com.liberty52.admin.service.controller.dto.OptionDetailModifyRequestDto;
-import com.liberty52.admin.service.controller.dto.OptionDetailOnSailModifyRequestDto;
+import com.liberty52.admin.service.applicationservice.ProductOptionModifyService;
+import com.liberty52.admin.service.controller.dto.ProductOptionModifyRequestDto;
+import com.liberty52.admin.service.controller.dto.ProductOptionOnSailModifyRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-public class OptionDetailModifyController {
+public class ProductOptionModifyController {
 
-    private final OptionDetailModifyService optionDetailModifyService;
+    private final ProductOptionModifyService productOptionModifyService;
 
-    @PutMapping("/optionDetail/{optionDetailId}")
+    @PutMapping("/admin/productOption/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
-    public void modifyOptionDetail(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailModifyRequestDto dto) {
-        optionDetailModifyService.modifyOptionDetail(role, optionDetailId, dto);
+    public void modifyProductOption(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId, @Validated @RequestBody ProductOptionModifyRequestDto dto) {
+        productOptionModifyService.modifyProductOption(role, productOptionId, dto);
     }
 
-    @PatchMapping("/optionDetail/{optionDetailId}")
+    @PatchMapping("/admin/productOption/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
-    public void modifyOptionDetailOnSailState(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailOnSailModifyRequestDto dto) {
-        optionDetailModifyService.modifyOptionDetailOnSailState(role, optionDetailId, dto);
+    public void modifyProductOptionOnSailState(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId, @Validated @RequestBody ProductOptionOnSailModifyRequestDto dto) {
+        productOptionModifyService.modifyProductOptionOnSailState(role, productOptionId, dto);
     }
 }
