@@ -13,13 +13,13 @@ public class ProductOptionModifyController {
 
     private final ProductOptionModifyService productOptionModifyService;
 
-    @PutMapping("/admin/productOption/{productOptionId}")
+    @PutMapping("/productOption/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
     public void modifyProductOption(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId, @Validated @RequestBody ProductOptionModifyRequestDto dto) {
         productOptionModifyService.modifyProductOption(role, productOptionId, dto);
     }
 
-    @PutMapping("/admin/productOptionOnSale/{productOptionId}")
+    @PutMapping("/productOptionOnSale/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
     public void modifyProductOptionOnSailState(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId) {
         productOptionModifyService.modifyProductOptionOnSailState(role, productOptionId);
