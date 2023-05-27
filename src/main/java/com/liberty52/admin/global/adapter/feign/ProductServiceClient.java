@@ -8,12 +8,8 @@ import com.liberty52.admin.global.adapter.feign.dto.AdminOrderRefundDto;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
 import com.liberty52.admin.global.adapter.feign.dto.AdminVBankStatusModifyDto;
-import com.liberty52.admin.service.controller.dto.CreateOptionDetailRequestDto;
-import com.liberty52.admin.service.controller.dto.OptionDetailRemoveRequestDto;
-import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
-import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
-import com.liberty52.admin.service.controller.dto.ReplyCreateRequestDto;
-import com.liberty52.admin.service.controller.dto.ReplyModifyRequestDto;
+import com.liberty52.admin.service.controller.dto.*;
+
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
@@ -118,4 +114,9 @@ public interface ProductServiceClient {
     @DeleteMapping("/admin/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
     void removeOptionDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailRemoveRequestDto dto);
+
+    @PostMapping("/admin/productOption/{productId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createProductOptionByAdmin(@RequestHeader("LB-Role") String role,
+                                          @Validated @RequestBody CreateProductOptionRequestDto dto, @PathVariable String productId);
 }
