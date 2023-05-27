@@ -93,7 +93,7 @@ public interface ProductServiceClient {
 
     @GetMapping("/admin/productOptionInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductOptionResponseDto> retrieveProductOptionInfoListByAdmin(@PathVariable String productId, @Validated @RequestBody RetrieveProductOptionRequestDto dto);
+    List<ProductOptionResponseDto> retrieveProductOptionInfoListByAdmin(@PathVariable String productId, @Validated @RequestBody RetrieveProductOptionRequestDto dto);
 
     @GetMapping("/admin/productInfo")
     @ResponseStatus(HttpStatus.OK)
