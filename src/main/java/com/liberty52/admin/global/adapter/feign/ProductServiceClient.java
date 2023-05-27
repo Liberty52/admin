@@ -17,15 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
@@ -111,12 +103,16 @@ public interface ProductServiceClient {
     @ResponseStatus(HttpStatus.OK)
     ProductInfoRetrieveResponseDto retrieveProductByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId);
 
-    @DeleteMapping("/admin/optionDetail/{optionDetailId}")
+    @PatchMapping("/admin/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
-    void removeOptionDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailRemoveRequestDto dto);
+    void modifyOptionDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailModifyRequestDto dto);
 
     @PostMapping("/admin/productOption/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProductOptionByAdmin(@RequestHeader("LB-Role") String role,
+    void createProductOptionByAdmin(@RequestHeader("LB-Role") String role,
                                           @Validated @RequestBody CreateProductOptionRequestDto dto, @PathVariable String productId);
+
+    @PutMapping("/admin/optionDetail/{optionDetailId}")
+    @ResponseStatus(HttpStatus.OK)
+    void modifyOptionDetailOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailOnSailModifyRequestDto dto);
 }
