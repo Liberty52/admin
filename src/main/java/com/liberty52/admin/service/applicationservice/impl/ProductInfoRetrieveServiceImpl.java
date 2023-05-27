@@ -1,18 +1,16 @@
 package com.liberty52.admin.service.applicationservice.impl;
 
 import com.liberty52.admin.global.adapter.feign.ProductServiceClient;
-import com.liberty52.admin.global.exception.external.forbidden.InvalidRoleException;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
 import com.liberty52.admin.service.applicationservice.ProductInfoRetrieveService;
 import com.liberty52.admin.service.controller.dto.ProductInfoRetrieveResponseDto;
 import com.liberty52.admin.service.controller.dto.ProductOptionResponseDto;
+import com.liberty52.admin.service.controller.dto.RetrieveProductOptionRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.liberty52.admin.global.constants.RoleConstants.ADMIN;
 
 @Service
 @Transactional
@@ -22,9 +20,9 @@ public class ProductInfoRetrieveServiceImpl implements ProductInfoRetrieveServic
     private final ProductServiceClient productServiceClient;
 
     @Override
-    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(String role, String productId) {
+    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(String role, String productId, RetrieveProductOptionRequestDto dto) {
         AdminRoleUtils.checkRole(role);
-        return productServiceClient.retrieveProductOptionInfoList(productId);
+        return productServiceClient.retrieveProductOptionInfoListByAdmin(productId, dto);
     }
 
     @Override

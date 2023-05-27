@@ -12,6 +12,6 @@ public class ProductOptionDetailResponseDto {
     String optionDetailId;
     String optionDetailName;
     int price;
-    boolean onSail;
+    boolean onSale;
 
 }
