@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductInfoRetrieveService {
 
-    List<ProductOptionResponseDto> retrieveProductOptionInfoList(String role, String productId, RetrieveProductOptionRequestDto dto);
+    List<ProductOptionResponseDto> retrieveProductOptionInfoList(String role, String productId, boolean onSale);
 
     List<ProductInfoRetrieveResponseDto> retrieveProductListByAdmin(String role);
 

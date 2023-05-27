@@ -20,9 +20,9 @@ public class ProductInfoRetrieveServiceImpl implements ProductInfoRetrieveServic
     private final ProductServiceClient productServiceClient;
 
     @Override
-    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(String role, String productId, RetrieveProductOptionRequestDto dto) {
+    public List<ProductOptionResponseDto> retrieveProductOptionInfoList(String role, String productId, boolean onSale) {
         AdminRoleUtils.checkRole(role);
-        return productServiceClient.retrieveProductOptionInfoListByAdmin(role, productId, dto);
+        return productServiceClient.retrieveProductOptionInfoListByAdmin(role, productId, onSale);
     }
 
     @Override
