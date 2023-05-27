@@ -4,7 +4,6 @@ import com.liberty52.admin.global.adapter.feign.ProductServiceClient;
 import com.liberty52.admin.global.utils.AdminRoleUtils;
 import com.liberty52.admin.service.applicationservice.ProductOptionModifyService;
 import com.liberty52.admin.service.controller.dto.ProductOptionModifyRequestDto;
-import com.liberty52.admin.service.controller.dto.ProductOptionOnSailModifyRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +23,8 @@ public class ProductOptionModifyServiceImpl implements ProductOptionModifyServic
     }
 
     @Override
-    public void modifyProductOptionOnSailState(String role, String productOptionId, ProductOptionOnSailModifyRequestDto dto) {
+    public void modifyProductOptionOnSailState(String role, String productOptionId) {
         AdminRoleUtils.checkRole(role);
-        productServiceClient.modifyProductOptionOnSailStateByAdmin(role, productOptionId, dto);
+        productServiceClient.modifyProductOptionOnSailStateByAdmin(role, productOptionId);
     }
 }

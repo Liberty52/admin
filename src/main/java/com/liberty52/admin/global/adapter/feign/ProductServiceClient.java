@@ -112,16 +112,16 @@ public interface ProductServiceClient {
     void createProductOptionByAdmin(@RequestHeader("LB-Role") String role,
                                           @Validated @RequestBody CreateProductOptionRequestDto dto, @PathVariable String productId);
 
-    @PatchMapping("/admin/optionDetail/{optionDetailId}")
+    @PutMapping("/admin/optionDetailOnSale/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
-    void modifyOptionDetailOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailOnSailModifyRequestDto dto);
+    void modifyOptionDetailOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId);
 
     @PutMapping("/admin/productOption/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
     void modifyProductOptionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId, @Validated @RequestBody ProductOptionModifyRequestDto dto);
 
-    @PatchMapping("/admin/productOption/{productOptionId}")
+    @PutMapping("/admin/productOptionOnSale/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
-    void modifyProductOptionOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId, @Validated @RequestBody ProductOptionOnSailModifyRequestDto dto);
+    void modifyProductOptionOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId);
 
 }
