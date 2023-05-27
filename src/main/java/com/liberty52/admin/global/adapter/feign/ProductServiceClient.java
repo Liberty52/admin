@@ -105,9 +105,14 @@ public interface ProductServiceClient {
 
     @PatchMapping("/admin/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
-    public void modifyOptionDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailModifyRequestDto dto);
+    void modifyOptionDetailByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailModifyRequestDto dto);
+
+    @PostMapping("/admin/productOption/{productId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    void createProductOptionByAdmin(@RequestHeader("LB-Role") String role,
+                                          @Validated @RequestBody CreateProductOptionRequestDto dto, @PathVariable String productId);
 
     @PutMapping("/admin/optionDetail/{optionDetailId}")
     @ResponseStatus(HttpStatus.OK)
-    public void modifyOptionDetailOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailOnSailModifyRequestDto dto);
+    void modifyOptionDetailOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String optionDetailId, @Validated @RequestBody OptionDetailOnSailModifyRequestDto dto);
 }
