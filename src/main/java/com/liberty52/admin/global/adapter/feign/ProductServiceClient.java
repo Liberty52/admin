@@ -1,16 +1,8 @@
 package com.liberty52.admin.global.adapter.feign;
 
-import com.liberty52.admin.global.adapter.feign.dto.AdminCanceledOrderDetailResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminCanceledOrderListResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminOrderDetailRetrieveResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminOrderListResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminOrderRefundDto;
-import com.liberty52.admin.global.adapter.feign.dto.AdminReviewDetailResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminReviewRetrieveResponse;
-import com.liberty52.admin.global.adapter.feign.dto.AdminVBankStatusModifyDto;
+import com.liberty52.admin.global.adapter.feign.dto.*;
 import com.liberty52.admin.service.controller.dto.*;
-
-import java.util.List;
+import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @FeignClient(value = "product", primary = false)
 public interface ProductServiceClient {
@@ -123,5 +117,45 @@ public interface ProductServiceClient {
     @PutMapping("/admin/productOptionOnSale/{productOptionId}")
     @ResponseStatus(HttpStatus.OK)
     void modifyProductOptionOnSailStateByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productOptionId);
+
+    /** 가상계좌 추가 */
+    @PostMapping("/admin/vbanks")
+    @ResponseStatus(HttpStatus.CREATED)
+    AdminVBankCreate.Response createVBankByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                 @RequestHeader("LB-Role") String role,
+                                                 @RequestBody @Valid AdminVBankCreate.Request request);
+
+    /** 가상계좌 리스트 조회 */
+    @GetMapping("/vbanks")
+    @ResponseStatus(HttpStatus.OK)
+    AdminVBankRetrieve.ListResponse getVBankInfoList();
+
+    /** 가상계좌 수정 */
+    @PutMapping("/admin/vbanks/{vBankId}")
+    @ResponseStatus(HttpStatus.OK)
+    AdminVBankModify.Response updateVBankByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                 @RequestHeader("LB-Role") String role,
+                                                 @PathVariable String vBankId,
+                                                 @RequestBody @Valid AdminVBankModify.Request request);
+
+    /** 가상계좌 삭제 */
+    @DeleteMapping("/admin/vbanks/{vBankId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteVBankByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                            @RequestHeader("LB-Role") String role,
+                            @PathVariable String vBankId);
+
+    /** 배송비 조회 */
+    @GetMapping("/options/delivery/fee")
+    @ResponseStatus(HttpStatus.OK)
+    AdminDeliveryOptionFeeRetrieve.Response getDefaultDeliveryFee();
+
+    /** 배송비 수정 */
+    @PatchMapping("/admin/options/delivery/fee")
+    @ResponseStatus(HttpStatus.OK)
+    AdminDeliveryOptionFeeModify.Response updateDefaultDeliveryFeeByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
+                                                                          @RequestHeader("LB-Role") String role,
+                                                                          @RequestBody @Valid AdminDeliveryOptionFeeModify.Request request);
+
 
 }
