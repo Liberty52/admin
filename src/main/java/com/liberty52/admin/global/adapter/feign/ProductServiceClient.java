@@ -91,9 +91,9 @@ public interface ProductServiceClient {
                                                                  @RequestHeader("LB-Role") String role,
                                                                  @PathVariable String orderId);
 
-    @GetMapping("/productOptionInfo/{productId}")
+    @GetMapping("/admin/productOptionInfo/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    List<ProductOptionResponseDto> retrieveProductOptionInfoList(@PathVariable String productId);
+    List<ProductOptionResponseDto> retrieveProductOptionInfoListByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId, @RequestParam boolean onSale);
 
     @GetMapping("/admin/productInfo")
     @ResponseStatus(HttpStatus.OK)
