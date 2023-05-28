@@ -26,11 +26,11 @@ public class AdminVBankModify {
     @AllArgsConstructor
     @Builder
     public static class Response {
-        private String vBankId;
+        private String vbankId;
         private String bankOfVBank;
         private String accountNumber;
         private String holder;
-        private String vBank;
+        private String vbank;
         private String updatedAt;
     }
 
