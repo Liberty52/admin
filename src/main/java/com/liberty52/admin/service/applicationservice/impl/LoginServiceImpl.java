@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginResponseDto login(LoginRequestDto requestDto, HttpServletResponse response) {
         ResponseEntity<AdminLoginResponseDto> feignResponse = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getEmail(), requestDto.getPassword(),
-                requestDto.isAutoLogin()));
+                requestDto.getIsAutoLogin()));
         AdminLoginResponseDto user = feignResponse.getBody();
 
         assertNotNull(requestDto, user);
