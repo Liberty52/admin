@@ -12,6 +12,7 @@ public class NoticeRetrieveResponse {
     private long currentPage;
     private long lastPage;
     private long totalPage;
+    private long totalCount;
 
     @Getter
     public static class NoticeContent {
