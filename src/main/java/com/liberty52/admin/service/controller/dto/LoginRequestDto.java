@@ -7,8 +7,10 @@ import lombok.Getter;
 public class LoginRequestDto {
 
     @NotBlank(message = "ID_IS_MANDATORY")
-    private String id;
+    private String email;
     @NotBlank(message = "PW_IS_MANDATORY")
     private String password;
+
+    private boolean isAutoLogin;
 
 }

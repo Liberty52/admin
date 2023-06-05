@@ -23,7 +23,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponseDto login(LoginRequestDto requestDto, HttpServletResponse response) {
-        ResponseEntity<AdminLoginResponseDto> feignResponse = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getId(), requestDto.getPassword()));
+        ResponseEntity<AdminLoginResponseDto> feignResponse = authServiceClient.login(AdminLoginRequestDto.of(requestDto.getEmail(), requestDto.getPassword(),
+                requestDto.isAutoLogin()));
         AdminLoginResponseDto user = feignResponse.getBody();
 
         assertNotNull(requestDto, user);
@@ -35,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
 
     private void assertNotNull(LoginRequestDto requestDto, AdminLoginResponseDto user) {
         if (user == null) {
-            log.error("Received null that user response of AUTH server during login. Request ID={}", requestDto.getId());
+            log.error("Received null that user response of AUTH server during login. Request Email={}", requestDto.getEmail());
             throw new InternalServerErrorException("로그인 과정에서 오류가 발생하였습니다. 시스템 관리자에게 문의해주세요.");
         }
     }
