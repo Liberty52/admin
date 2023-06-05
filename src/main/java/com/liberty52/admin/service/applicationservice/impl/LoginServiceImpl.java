@@ -14,11 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
+    public static final String EMPTY = "EMPTY";
     private final AuthServiceClient authServiceClient;
 
     @Override
@@ -44,12 +47,12 @@ public class LoginServiceImpl implements LoginService {
     private void addHeaders(ResponseEntity<?> feignResponse, HttpServletResponse response) {
         final String HEADER_ACCESS = "access";
         final String HEADER_REFRESH = "refresh";
-        String accessToken = feignResponse.getHeaders().getOrDefault(HEADER_ACCESS, null).get(0);
-        String refreshToken = feignResponse.getHeaders().getOrDefault(HEADER_REFRESH, null).get(0);
-        if (accessToken != null) {
+        String accessToken = feignResponse.getHeaders().getOrDefault(HEADER_ACCESS, List.of(EMPTY)).get(0);
+        String refreshToken = feignResponse.getHeaders().getOrDefault(HEADER_REFRESH, List.of(EMPTY)).get(0);
+        if (!accessToken.equals(EMPTY)) {
             response.addHeader(HEADER_ACCESS, accessToken);
         }
-        if (refreshToken != null) {
+        if (!refreshToken.equals(EMPTY)) {
             response.addHeader(HEADER_REFRESH,  refreshToken);
         }
     }
