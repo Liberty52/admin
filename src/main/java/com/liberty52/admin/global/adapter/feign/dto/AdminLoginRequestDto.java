@@ -13,7 +13,7 @@ public class AdminLoginRequestDto {
     @NotBlank(message = "LOGIN_PW_IS_MANDATORY")
     private String password;
     @NotBlank(message = "isAutoLogin_IS_MANDATORY")
-    private boolean isAutoLogin;
+    private Boolean isAutoLogin;
 
     public static AdminLoginRequestDto of(String email, String password, boolean isAutoLogin) {
         return new AdminLoginRequestDto(email, password,isAutoLogin);

@@ -11,6 +11,6 @@ public class LoginRequestDto {
     @NotBlank(message = "PW_IS_MANDATORY")
     private String password;
 
-    private boolean isAutoLogin;
+    private Boolean isAutoLogin;
 
 }
