@@ -25,13 +25,13 @@ jobs:
 
       - name: Build and Push Docker Dev Image
         run: |
-          docker build -t my-admin-server:latest -f multistage.Dockerfile . --build-arg SPRING_PROFILES_ACTIVE=dev
+          docker build --build-arg SPRING_PROFILES_ACTIVE=dev -t my-admin-server:latest -f multistage.Dockerfile .
           docker tag my-admin-server:latest ghcr.io/liberty52/liberty52-admin-server:dev-v${{ github.sha }}
           docker push ghcr.io/liberty52/liberty52-admin-server:dev-v${{ github.sha }}
 
       - name: Build and Push Docker Prod Image
         run: |
-          docker build -t my-admin-server:latest -f multistage.Dockerfile . --build-arg SPRING_PROFILES_ACTIVE=prod
+          docker build --build-arg SPRING_PROFILES_ACTIVE=prod -t my-admin-server:latest -f multistage.Dockerfile .
           docker tag my-admin-server:latest ghcr.io/liberty52/liberty52-admin-server:prod-v${{ github.sha }}
           docker push ghcr.io/liberty52/liberty52-admin-server:prod-v${{ github.sha }}
 
