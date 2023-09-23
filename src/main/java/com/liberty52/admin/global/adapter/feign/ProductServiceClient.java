@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -156,6 +157,9 @@ public interface ProductServiceClient {
     AdminDeliveryOptionFeeModify.Response updateDefaultDeliveryFeeByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
                                                                           @RequestHeader("LB-Role") String role,
                                                                           @RequestBody @Valid AdminDeliveryOptionFeeModify.Request request);
-
-
+    /** 제품 설명 추가*/
+	@PostMapping("/admin/product/{productId}/introduction")
+    @ResponseStatus(HttpStatus.CREATED)
+    void createProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
+		@RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile);
 }
