@@ -17,4 +17,5 @@ public class ProductInfoRetrieveResponseDto {
     float meanRating;
     int ratingCount;
     String state;
+    String introductionImageUrl;
 }
