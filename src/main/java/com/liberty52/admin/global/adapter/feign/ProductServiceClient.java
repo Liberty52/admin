@@ -1,6 +1,7 @@
 package com.liberty52.admin.global.adapter.feign;
 
 import com.liberty52.admin.global.adapter.feign.dto.*;
+import com.liberty52.admin.global.config.FeignImageConfig;
 import com.liberty52.admin.service.controller.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@FeignClient(value = "product", primary = false)
+@FeignClient(value = "product", primary = false, configuration = FeignImageConfig.class)
 public interface ProductServiceClient {
     @PostMapping("/admin/reviews/{reviewId}/replies")
     void createReviewReplyByAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String adminId,
@@ -158,7 +159,7 @@ public interface ProductServiceClient {
                                                                           @RequestHeader("LB-Role") String role,
                                                                           @RequestBody @Valid AdminDeliveryOptionFeeModify.Request request);
     /** 제품 설명 추가*/
-	@PostMapping("/admin/product/{productId}/introduction")
+    @PostMapping(value = "/admin/product/{productId}/introduction", consumes = "multipart/form-data")
     @ResponseStatus(HttpStatus.CREATED)
     void createProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
 		@RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile);
