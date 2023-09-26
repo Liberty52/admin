@@ -1,16 +1,21 @@
 name: Deploy dev
 
+#on:
+#  workflow_run:
+#    workflows:
+#      - Build and Push Docker Image for DEV
+#    types:
+#      - completed
+
 on:
-  workflow_run:
-    workflows:
-      - Build and Push Docker Image for DEV
-    types:
-      - completed
+  push:
+    branches:
+      - issue-#72
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     env:
       DOCKER_REGISTRY: ghcr.io
