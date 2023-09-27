@@ -163,4 +163,10 @@ public interface ProductServiceClient {
     @ResponseStatus(HttpStatus.CREATED)
     void createProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
 		@RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile);
+
+    /** 제품 설명 수정*/
+    @PatchMapping(value = "/admin/product/{productId}/introduction", consumes = "multipart/form-data")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void modifyProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
+                                          @RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile);
 }

@@ -1,0 +1,22 @@
+package com.liberty52.admin.service.controller;
+
+import com.liberty52.admin.service.applicationservice.ProductIntroductionModifyService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+public class ProductIntroductionModifyController {
+    @RestController
+    @RequiredArgsConstructor
+    public class ProductIntroductionCreateController {
+        private final ProductIntroductionModifyService productIntroductionModifyService;
+
+        @PatchMapping("/product/{productId}/introduction")
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        public void modifyProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
+                                                     @RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile) {
+            productIntroductionModifyService.modifyProductIntroduction(role, productId, productIntroductionImageFile);
+        }
+    }
+}
