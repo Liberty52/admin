@@ -13,5 +13,6 @@ public class ProductOptionDetailResponseDto {
     String optionDetailName;
     int price;
     boolean onSale;
+    int stock;
 
 }
