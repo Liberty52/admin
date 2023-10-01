@@ -8,7 +8,7 @@ spring:
     active: local
   config:
     import:
-      - optional:configserver:http://54.180.92.188:8888/
+      - optional:configserver:http://a2c18381d8c21491aa52a6e4f5465c91-2090461168.us-west-2.elb.amazonaws.com:8888/
 logging:
   level:
     root: info
