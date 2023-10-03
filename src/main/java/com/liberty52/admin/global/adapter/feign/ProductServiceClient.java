@@ -173,4 +173,8 @@ public interface ProductServiceClient {
     @PostMapping(value = "/admin/licenseImage", consumes = "multipart/form-data")
     @ResponseStatus(HttpStatus.CREATED)
 	void createLicenseImageByAdmin(String role, LicenseImageCreateDto dto, MultipartFile productIntroductionImageFile);
+    /** 라이센스 이미지 조회*/
+    @GetMapping("/admin/licenseImage")
+    @ResponseStatus(HttpStatus.OK)
+    List<LicenseImageRetrieveDto> retrieveLicenseImageByAdmin(String role);
 }
