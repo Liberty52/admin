@@ -169,4 +169,8 @@ public interface ProductServiceClient {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void modifyProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
                                           @RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile);
+    /** 라이센스 이미지 추가*/
+    @PostMapping(value = "/admin/licenseImage", consumes = "multipart/form-data")
+    @ResponseStatus(HttpStatus.CREATED)
+	void createLicenseImageByAdmin(String role, LicenseImageCreateDto dto, MultipartFile productIntroductionImageFile);
 }
