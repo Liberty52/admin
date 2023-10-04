@@ -169,4 +169,13 @@ public interface ProductServiceClient {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void modifyProductIntroductionByAdmin(@RequestHeader("LB-Role") String role, @PathVariable String productId,
                                           @RequestPart(value = "images",required = false) MultipartFile productIntroductionImageFile);
+    /** 라이센스 이미지 추가*/
+    @PostMapping(value = "/admin/licenseImage", consumes = "multipart/form-data")
+    @ResponseStatus(HttpStatus.CREATED)
+	void createLicenseImageByAdmin(@RequestHeader("LB-Role") String role, @RequestPart("dto") String dtoJson,
+		@RequestPart(value = "image") MultipartFile productIntroductionImageFile);
+    /** 라이센스 이미지 조회*/
+    @GetMapping("/admin/licenseImage")
+    @ResponseStatus(HttpStatus.OK)
+    List<LicenseImageRetrieveDto> retrieveLicenseImageByAdmin(@RequestHeader("LB-Role")String role);
 }
