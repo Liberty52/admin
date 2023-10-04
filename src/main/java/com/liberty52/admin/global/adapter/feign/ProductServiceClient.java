@@ -172,9 +172,10 @@ public interface ProductServiceClient {
     /** 라이센스 이미지 추가*/
     @PostMapping(value = "/admin/licenseImage", consumes = "multipart/form-data")
     @ResponseStatus(HttpStatus.CREATED)
-	void createLicenseImageByAdmin(String role, LicenseImageCreateDto dto, MultipartFile productIntroductionImageFile);
+	void createLicenseImageByAdmin(@RequestHeader("LB-Role") String role, @RequestPart("dto") String dtoJson,
+		@RequestPart(value = "image") MultipartFile productIntroductionImageFile);
     /** 라이센스 이미지 조회*/
     @GetMapping("/admin/licenseImage")
     @ResponseStatus(HttpStatus.OK)
-    List<LicenseImageRetrieveDto> retrieveLicenseImageByAdmin(String role);
+    List<LicenseImageRetrieveDto> retrieveLicenseImageByAdmin(@RequestHeader("LB-Role")String role);
 }

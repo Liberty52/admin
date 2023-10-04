@@ -1,5 +1,7 @@
 package com.liberty52.admin.service.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ public class LicenseImageCreateController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createLicenseImageByAdmin(@RequestHeader("LB-Role") String role,
 		@Validated @RequestPart("dto") LicenseImageCreateDto dto,
-		@RequestPart(value = "images", required = false) MultipartFile productIntroductionImageFile) {
+		@RequestPart(value = "image") MultipartFile productIntroductionImageFile) throws IOException {
 		licenseImageCreateService.createLicenseImageByAdmin(role, dto, productIntroductionImageFile);
 	}
 }
